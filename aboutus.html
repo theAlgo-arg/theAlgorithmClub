@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | The Algorithm Club</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#fbf9f9;
+    --text:#1b1c1c;
+    --muted:#4c4546;
+    --primary:#000000;
+    --secondary:#0042c7;
+    --accent:#5b8fff;
+    --border:#cfc4c5;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.7;
+}
+
+.container{
+    width:100%;
+    max-width:1280px;
+    margin:auto;
+    padding-left:64px;
+    padding-right:64px;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(20px);
+    background:rgba(251,249,249,.85);
+    border-bottom:1px solid rgba(0,0,0,.08);
+}
+
+.nav{
+    height:80px;
+    display:flex;
+    align-items:center;
+}
+
+.home-btn{
+    text-decoration:none;
+    color:var(--text);
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    position:relative;
+}
+
+.home-btn::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-4px;
+    width:0;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        var(--secondary),
+        var(--accent)
+    );
+    transition:.3s;
+}
+
+.home-btn:hover::after{
+    width:100%;
+}
+
+.hero{
+    min-height:70vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    top:-200px;
+    right:-200px;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(0,66,199,.12),
+        transparent 70%
+    );
+}
+
+.section-label{
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    background:linear-gradient(
+        90deg,
+        var(--secondary),
+        var(--accent)
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(3rem,7vw,5rem);
+    line-height:1.05;
+    font-weight:700;
+    max-width:900px;
+    margin-bottom:30px;
+}
+
+.hero p{
+    max-width:750px;
+    font-size:18px;
+    color:var(--muted);
+}
+
+.divider{
+    width:100%;
+    height:1px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(0,66,199,.25),
+        transparent
+    );
+}
+
+.section{
+    padding:120px 0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+}
+
+.section-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:40px;
+    line-height:1.2;
+    font-weight:700;
+    margin-bottom:24px;
+}
+
+.section p{
+    color:var(--muted);
+    font-size:17px;
+}
+
+.feature-box{
+    border:1px solid var(--border);
+    padding:40px;
+    background:white;
+    transition:.3s;
+}
+
+.feature-box:hover{
+    transform:translateY(-4px);
+    box-shadow:
+    0 10px 30px rgba(0,66,199,.08);
+}
+
+.feature-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:22px;
+    margin-bottom:16px;
+}
+
+.services{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:24px;
+}
+
+.service{
+    border:1px solid var(--border);
+    padding:24px;
+}
+
+.service span{
+    color:var(--secondary);
+    font-weight:600;
+}
+
+.cta{
+    padding:140px 0;
+    text-align:center;
+}
+
+.cta h2{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(2.2rem,5vw,4rem);
+    margin-bottom:24px;
+}
+
+.cta p{
+    max-width:700px;
+    margin:auto;
+    color:var(--muted);
+}
+
+footer{
+    padding:40px 0;
+    border-top:1px solid var(--border);
+}
+
+footer p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+@media(max-width:900px){
+
+    .container{
+        padding-left:24px;
+        padding-right:24px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+        gap:48px;
+    }
+
+    .services{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:80px 0;
+    }
+
+    .cta{
+        padding:100px 0;
+    }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="home-btn">
+            ← Home
+        </a>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+
+```
+    <div class="section-label">
+        About Us
+    </div>
+
+    <h1>
+        Engineering business growth for the digital age.
+    </h1>
+
+    <p>
+        The Algorithm Club helps businesses transition from
+        traditional offline operations into fully integrated,
+        scalable online platforms designed for long-term growth.
+    </p>
+
+</div>
+```
+
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+    <div class="container">
+
+```
+    <div class="grid">
+
+        <div>
+            <div class="section-label">
+                Who We Are
+            </div>
+
+            <h2 class="section-title">
+                Technology tailored to your business.
+            </h2>
+
+            <p>
+                We believe every business deserves access to a
+                professional digital presence without being forced
+                into expensive, one-size-fits-all solutions.
+            </p>
+
+            <br>
+
+            <p>
+                Our flexible pricing structure and customizable
+                service packages allow businesses to choose exactly
+                what they need, whether that's a simple landing page,
+                a full online store, or a complete digital ecosystem.
+            </p>
+        </div>
+
+        <div class="feature-box">
+
+            <h3 class="feature-title">
+                Our Mission
+            </h3>
+
+            <p>
+                To help businesses expand their reach, improve
+                customer engagement, and thrive in an increasingly
+                digital world through practical, affordable, and
+                scalable technology solutions.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<section class="section">
+    <div class="container">
+
+```
+    <div class="section-label">
+        Services
+    </div>
+
+    <h2 class="section-title">
+        What we provide.
+    </h2>
+
+    <div class="services">
+
+        <div class="service">
+            <span>Website Design & Development</span>
+        </div>
+
+        <div class="service">
+            <span>UI / UX Design</span>
+        </div>
+
+        <div class="service">
+            <span>Backend Systems</span>
+        </div>
+
+        <div class="service">
+            <span>Website Maintenance</span>
+        </div>
+
+        <div class="service">
+            <span>Digital Advertising Campaigns</span>
+        </div>
+
+        <div class="service">
+            <span>Search Engine Optimization</span>
+        </div>
+
+        <div class="service">
+            <span>AdSense Integration</span>
+        </div>
+
+        <div class="service">
+            <span>Technical Support</span>
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<section class="cta">
+
+```
+<div class="container">
+
+    <div class="section-label">
+        The Algorithm Club
+    </div>
+
+    <h2>
+        Built for businesses that want to grow.
+    </h2>
+
+    <p>
+        Whether you're launching your first website, expanding into
+        e-commerce, or planning long-term digital growth, we build
+        solutions that scale with your business.
+    </p>
+
+</div>
+```
+
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 The Algorithm Club. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
