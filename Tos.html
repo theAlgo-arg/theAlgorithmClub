@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | The Algorithm Club</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fbf9f9;
+            --text: #1b1c1c;
+            --muted: #4c4546;
+            --primary: #000000;
+            --secondary: #0042c7;
+            --accent: #5b8fff;
+            --border: #cfc4c5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: auto;
+            padding-left: 64px;
+            padding-right: 64px;
+        }
+
+        /* ===========================
+   HEADER
+=========================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(251, 249, 249, .85);
+            border-bottom: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        .nav {
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-btn {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .home-btn::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                    var(--secondary),
+                    var(--accent));
+            transition: .3s;
+        }
+
+        .home-btn:hover::after {
+            width: 100%;
+        }
+
+        /* ===========================
+   HERO
+=========================== */
+
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(0, 66, 199, .12),
+                    transparent 70%);
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+
+            background: linear-gradient(90deg,
+                    var(--secondary),
+                    var(--accent));
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            margin-bottom: 20px;
+        }
+
+        .last-updated {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            background: white;
+            border: 1px solid var(--border);
+
+            color: var(--muted);
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(3rem, 7vw, 5rem);
+            line-height: 1.05;
+            font-weight: 700;
+            max-width: 900px;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            max-width: 750px;
+            font-size: 18px;
+            color: var(--muted);
+        }
+
+        /* ===========================
+   DIVIDER
+=========================== */
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(0, 66, 199, .25),
+                    transparent);
+        }
+
+        /* ===========================
+   MAIN CONTENT
+=========================== */
+
+        .section {
+            padding: 120px 0;
+        }
+
+        .policy-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* ===========================
+   TABLE OF CONTENTS
+=========================== */
+
+        .toc {
+            position: sticky;
+            top: 120px;
+
+            background: white;
+            border: 1px solid var(--border);
+
+            padding: 30px;
+        }
+
+        .toc h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .toc a {
+            display: block;
+            text-decoration: none;
+
+            color: var(--muted);
+
+            margin-bottom: 12px;
+
+            transition: .25s;
+        }
+
+        .toc a:hover {
+            color: var(--secondary);
+        }
+
+        .policy-content {
+            width: 100%;
+        }
+
+        /* ===========================
+   POLICY CARDS
+=========================== */
+
+        .policy-block {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            padding: 40px;
+
+            margin-bottom: 32px;
+
+            transition: .3s;
+        }
+
+        .policy-block:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 30px rgba(0, 66, 199, .08);
+        }
+
+        .policy-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 30px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .policy-block p {
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .policy-block ul {
+            margin-top: 20px;
+            padding-left: 24px;
+        }
+
+        .policy-block li {
+            color: var(--muted);
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        .policy-block strong {
+            color: var(--text);
+        }
+
+        /* ===========================
+   CTA
+=========================== */
+
+        .cta {
+            padding: 140px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: auto;
+            color: var(--muted);
+            margin-bottom: 40px;
+        }
+
+        /* ===========================
+   BUTTON
+=========================== */
+
+        .submit-btn {
+            display: inline-block;
+            text-decoration: none;
+
+            position: relative;
+            overflow: hidden;
+
+            padding: 16px 36px;
+
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+
+            background: linear-gradient(110deg,
+                    #000000 0%,
+                    #0a1a5e 50%,
+                    #0042c7 100%);
+
+            transition: all .35s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 24px rgba(0, 66, 199, .30);
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -80%;
+
+            width: 50%;
+            height: 100%;
+
+            background: linear-gradient(105deg,
+                    transparent 40%,
+                    rgba(255, 255, 255, .15) 50%,
+                    transparent 60%);
+
+            transform: skewX(-15deg);
+            transition: left .55s ease;
+        }
+
+        .submit-btn:hover::after {
+            left: 140%;
+        }
+
+        /* ===========================
+   FOOTER
+=========================== */
+
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ===========================
+   MOBILE
+=========================== */
+
+        @media(max-width:900px) {
+
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .policy-container {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: relative;
+                top: auto;
+                margin-bottom: 32px;
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .policy-block {
+                padding: 28px;
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+
+            .policy-block p,
+            .policy-block li {
+                font-size: 16px;
+            }
+
+            .cta {
+                padding: 100px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav">
+            <a href="index.html" class="home-btn">
+                ← Home
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+
+        <div class="container">
+
+            <div class="section-label">
+                Terms of Service
+            </div>
+
+            <h1>
+                Clear expectations. Transparent business.
+            </h1>
+
+            <p>
+                These Terms of Service define how The Algorithm Club
+                provides services, manages projects, handles third-party
+                costs, protects client ownership, and establishes the
+                responsibilities of both parties.
+            </p>
+
+        </div>
+
+    </section>
+
+    <div class="divider"></div>
+    <section class="section">
+
+        <div class="container policy-container">
+
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <a href="#sec-01">01. Introduction</a>
+                <a href="#sec-02">02. Definitions</a>
+                <a href="#sec-03">03. Service Charges</a>
+                <a href="#sec-04">04. Partnership Charges</a>
+                <a href="#sec-05">05. Quotes & Estimates</a>
+                <a href="#sec-06">06. Client Responsibilities</a>
+                <a href="#sec-07">07. Project Delivery</a>
+                <a href="#sec-08">08. Revisions & Scope Changes</a>
+                <a href="#sec-09">09. Ownership Rights</a>
+                <a href="#sec-10">10. Hosting & Infrastructure</a>
+                <a href="#sec-11">11. Maintenance & Support</a>
+                <a href="#sec-12">12. Security Responsibilities</a>
+                <a href="#sec-13">13. Content Responsibility</a>
+                <a href="#sec-14">14. Third-Party Services</a>
+                <a href="#sec-15">15. Advertising & Growth Disclaimer</a>
+                <a href="#sec-16">16. Testimonials & Portfolio Usage</a>
+                <a href="#sec-17">17. Refunds & Cancellations</a>
+                <a href="#sec-18">18. Intellectual Property</a>
+                <a href="#sec-19">19. Force Majeure</a>
+                <a href="#sec-20">20. Limitation Of Liability</a>
+                <a href="#sec-21">21. Governing Law</a>
+                <a href="#sec-22">22. Changes To Terms</a>
+                <a href="#sec-23">23. Contact Information</a>
+                <a href="#privacy-policy">24. Privacy Policy</a>
+            </div>
+
+            <div class="policy-content">
+
+                <div class="policy-block" id="sec-01">
+                    <div class="section-label">01</div>
+                    <h2 class="section-title">Introduction</h2>
+
+                    <p>
+                        The Algorithm Club provides website development,
+                        maintenance, digital consulting, advertising support,
+                        online business integration, and related digital services.
+                        By purchasing any service from The Algorithm Club,
+                        the client agrees to these Terms of Service.
+                    </p>
+                </div>
+
+                <div class="policy-block" id="sec-02">
+                    <div class="section-label">02</div>
+                    <h2 class="section-title">Definitions</h2>
+
+                    <ul>
+                        <li><strong>Client</strong> refers to the purchaser of services.</li>
+                        <li><strong>Service Charges</strong> are fees paid directly to The Algorithm Club.</li>
+                        <li><strong>Partnership Charges</strong> are costs paid to third-party providers.</li>
+                        <li><strong>Project</strong> refers to any service purchased from The Algorithm Club.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-03">
+                    <div class="section-label">03</div>
+                    <h2 class="section-title">Service Charges</h2>
+
+                    <p>
+                        Service Charges compensate The Algorithm Club for
+                        development work, maintenance, project management,
+                        consulting, employee compensation, operations,
+                        advertising, and business expenses.
+                    </p>
+                </div>
+
+                <div class="policy-block" id="sec-04">
+                    <div class="section-label">04</div>
+                    <h2 class="section-title">Partnership Charges</h2>
+
+                    <ul>
+                        <li>Partnership Charges are paid to third-party providers.</li>
+                        <li>Examples include domains, hosting, cloud services, software licenses, email services, and
+                            infrastructure.</li>
+                        <li>Where possible, lower-cost or free solutions may be selected to reduce client expenses.</li>
+                        <li>Partnership Charges are displayed separately whenever applicable.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-05">
+                    <div class="section-label">05</div>
+                    <h2 class="section-title">Quotes & Estimates</h2>
+
+                    <ul>
+                        <li>Quotes are estimates based on available project information.</li>
+                        <li>Additional requirements may affect pricing.</li>
+                        <li>Project complexity may require revised estimates.</li>
+                        <li>No work begins until both parties agree to the project scope.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-06">
+                    <div class="section-label">06</div>
+                    <h2 class="section-title">Client Responsibilities</h2>
+
+                    <ul>
+                        <li>Clients must provide accurate information.</li>
+                        <li>Clients must provide required content and assets.</li>
+                        <li>Clients must review submitted work within a reasonable timeframe.</li>
+                        <li>Project timelines may be extended due to delayed client responses.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-07">
+                    <div class="section-label">07</div>
+                    <h2 class="section-title">Project Delivery</h2>
+
+                    <ul>
+                        <li>A project is considered delivered when agreed deliverables have been provided.</li>
+                        <li>Project completion does not automatically include future modifications.</li>
+                        <li>Additional work may require separate agreements.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-08">
+                    <div class="section-label">08</div>
+                    <h2 class="section-title">Revisions & Scope Changes</h2>
+
+                    <ul>
+                        <li>Reasonable revisions may be included according to the purchased plan.</li>
+                        <li>Requests outside the agreed scope may incur additional fees.</li>
+                        <li>The Algorithm Club reserves the right to determine whether a request exceeds the agreed
+                            scope.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-09">
+                    <div class="section-label">09</div>
+                    <h2 class="section-title">Ownership Rights</h2>
+
+                    <ul>
+                        <li>The client remains the owner of purchased domains.</li>
+                        <li>The client remains the owner of hosting accounts purchased on their behalf.</li>
+                        <li>The client owns supplied business assets and content.</li>
+                        <li>The Algorithm Club does not claim ownership of client businesses or brands.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-10">
+                    <div class="section-label">10</div>
+                    <h2 class="section-title">Hosting & Infrastructure</h2>
+
+                    <ul>
+                        <li>Hosting providers often charge fees in advance.</li>
+                        <li>Hosting upgrades may not qualify for full refunds.</li>
+                        <li>Migrations may require additional costs.</li>
+                        <li>Provider policies may affect refund eligibility.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-11">
+                    <div class="section-label">11</div>
+                    <h2 class="section-title">Maintenance & Support</h2>
+
+                    <ul>
+                        <li>Some plans include a limited maintenance period.</li>
+                        <li>After the included period expires, additional support may require renewal.</li>
+                        <li>Technical mistakes caused directly by The Algorithm Club will be corrected within reasonable
+                            limits.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-12">
+                    <div class="section-label">12</div>
+                    <h2 class="section-title">Security Responsibilities</h2>
+
+                    <ul>
+                        <li>Reasonable industry-standard security practices are followed.</li>
+                        <li>The Algorithm Club accepts responsibility for obvious implementation mistakes directly
+                            caused by its work.</li>
+                        <li>No guarantee can be made against advanced cyberattacks, zero-day vulnerabilities, or
+                            third-party breaches.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-13">
+                    <div class="section-label">13</div>
+                    <h2 class="section-title">Content Responsibility</h2>
+
+                    <ul>
+                        <li>Clients remain solely responsible for submitted content.</li>
+                        <li>The Algorithm Club is not responsible for unlawful, infringing, fraudulent, misleading, or
+                            prohibited content supplied by clients.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-14">
+                    <div class="section-label">14</div>
+                    <h2 class="section-title">Third-Party Services</h2>
+
+                    <ul>
+                        <li>The Algorithm Club is not responsible for outages or failures caused by third-party
+                            providers.</li>
+                        <li>Provider pricing, policies, and service availability may change without notice.</li>
+                        <li>Third-party service interruptions are outside our direct control.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-15">
+                    <div class="section-label">15</div>
+                    <h2 class="section-title">Advertising & Growth Disclaimer</h2>
+
+                    <ul>
+                        <li>Advertising campaigns do not guarantee business growth.</li>
+                        <li>Websites do not guarantee revenue increases.</li>
+                        <li>Traffic, rankings, conversions, and profits cannot be guaranteed.</li>
+                        <li>Past results do not guarantee future outcomes.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-16">
+                    <div class="section-label">16</div>
+                    <h2 class="section-title">Testimonials & Portfolio Usage</h2>
+
+                    <ul>
+                        <li>Testimonials are displayed only with permission.</li>
+                        <li>Portfolio projects and case studies are used only with client approval.</li>
+                        <li>Clients are not required to provide endorsements.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-17">
+                    <div class="section-label">17</div>
+                    <h2 class="section-title">Refunds & Cancellations</h2>
+
+                    <ul>
+                        <li>Refund eligibility depends on project progress.</li>
+                        <li>Refund eligibility depends on purchased plans.</li>
+                        <li>Partnership Charges may be non-refundable.</li>
+                        <li>Cancellation requests are reviewed according to service commitments already made.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-18">
+                    <div class="section-label">18</div>
+                    <h2 class="section-title">Intellectual Property</h2>
+
+                    <ul>
+                        <li>Ownership of custom deliverables transfers upon full payment unless otherwise agreed.</li>
+                        <li>The Algorithm Club retains ownership of reusable templates, internal tools, frameworks, and
+                            proprietary systems.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-19">
+                    <div class="section-label">19</div>
+                    <h2 class="section-title">Force Majeure</h2>
+
+                    <ul>
+                        <li>The Algorithm Club is not liable for delays caused by events beyond reasonable control.</li>
+                        <li>Examples include natural disasters, internet outages, cyberattacks, government actions, war,
+                            or similar events.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-20">
+                    <div class="section-label">20</div>
+                    <h2 class="section-title">Limitation Of Liability</h2>
+
+                    <ul>
+                        <li>The Algorithm Club shall not be liable for indirect or consequential damages.</li>
+                        <li>Maximum liability shall not exceed the amount paid directly to The Algorithm Club for the
+                            affected service.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-21">
+                    <div class="section-label">21</div>
+                    <h2 class="section-title">Governing Law</h2>
+
+                    <p>
+                        These Terms of Service shall be governed by and interpreted
+                        in accordance with the applicable laws of India.
+                    </p>
+                </div>
+
+                <div class="policy-block" id="sec-22">
+                    <div class="section-label">22</div>
+                    <h2 class="section-title">Changes To Terms</h2>
+
+                    <ul>
+                        <li>The Algorithm Club reserves the right to update these terms.</li>
+                        <li>The latest published version shall apply to future transactions.</li>
+                    </ul>
+                </div>
+
+                <div class="policy-block" id="sec-23">
+                    <div class="section-label">23</div>
+                    <h2 class="section-title">Contact Information</h2>
+
+                    <p>
+                        Questions regarding these Terms of Service may be directed
+                        through the contact methods listed on our website.
+                    </p>
+                </div>
+
+                <div class="policy-block" id="privacy-policy">
+                    <div class="section-label">24</div>
+                    <h2 class="section-title">Privacy Policy</h2>
+
+                    <ul>
+                        <li>Client information is used only for service delivery.</li>
+                        <li>We do not sell personal information.</li>
+                        <li>Information may be shared with providers only when necessary to deliver services.</li>
+                        <li>Reasonable efforts are made to protect stored information.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="cta">
+
+        <div class="container">
+
+            <div class="section-label">
+                The Algorithm Club
+            </div>
+
+            <h2>
+                Questions About These Terms?
+            </h2>
+
+            <p>
+                Contact us before purchasing any service if you require
+                clarification regarding pricing, hosting, ownership,
+                refunds, maintenance, or project obligations.
+            </p>
+
+            <a href="contact.html" class="submit-btn">
+                Contact Us
+            </a>
+
+        </div>
+
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 The Algorithm Club. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
