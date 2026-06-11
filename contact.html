@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us | The Algorithm Club</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#fbf9f9;
+    --text:#1b1c1c;
+    --muted:#4c4546;
+    --primary:#000000;
+    --secondary:#0042c7;
+    --accent:#5b8fff;
+    --border:#cfc4c5;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.7;
+}
+
+.container{
+    width:100%;
+    max-width:1280px;
+    margin:auto;
+    padding-left:64px;
+    padding-right:64px;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(20px);
+    background:rgba(251,249,249,.85);
+    border-bottom:1px solid rgba(0,0,0,.08);
+}
+
+.nav{
+    height:80px;
+    display:flex;
+    align-items:center;
+}
+
+.home-btn{
+    text-decoration:none;
+    color:var(--text);
+    font-weight:600;
+    font-size:14px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    position:relative;
+}
+
+.home-btn::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-4px;
+    width:0;
+    height:2px;
+    background:linear-gradient(
+        90deg,
+        var(--secondary),
+        var(--accent)
+    );
+    transition:.3s;
+}
+
+.home-btn:hover::after{
+    width:100%;
+}
+
+.hero{
+    min-height:70vh;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    top:-200px;
+    right:-200px;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    background:radial-gradient(
+        circle,
+        rgba(0,66,199,.12),
+        transparent 70%
+    );
+}
+
+.section-label{
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    background:linear-gradient(
+        90deg,
+        var(--secondary),
+        var(--accent)
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-family:'Montserrat',sans-serif;
+    font-size:clamp(3rem,7vw,5rem);
+    line-height:1.05;
+    font-weight:700;
+    max-width:900px;
+    margin-bottom:30px;
+}
+
+.hero p{
+    max-width:750px;
+    font-size:18px;
+    color:var(--muted);
+}
+
+.divider{
+    width:100%;
+    height:1px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(0,66,199,.25),
+        transparent
+    );
+}
+
+.section{
+    padding:120px 0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+}
+
+.section-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:40px;
+    line-height:1.2;
+    font-weight:700;
+    margin-bottom:24px;
+}
+
+.section p{
+    color:var(--muted);
+    font-size:17px;
+}
+
+.feature-box{
+    border:1px solid var(--border);
+    padding:40px;
+    background:white;
+    transition:.3s;
+}
+
+.feature-box:hover{
+    transform:translateY(-4px);
+    box-shadow:
+    0 10px 30px rgba(0,66,199,.08);
+}
+
+.feature-title{
+    font-family:'Montserrat',sans-serif;
+    font-size:22px;
+    margin-bottom:16px;
+}
+
+.contact-form{
+    max-width:800px;
+}
+
+.input-group{
+    margin-bottom:24px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+.input-group input,
+.input-group textarea{
+    width:100%;
+    padding:16px;
+    border:1px solid var(--border);
+    background:white;
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    outline:none;
+    transition:.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+    border-color:var(--secondary);
+    box-shadow:
+    0 0 0 4px rgba(0,66,199,.08);
+}
+
+.submit-btn{
+    position:relative;
+    overflow:hidden;
+
+    border:none;
+    cursor:pointer;
+
+    padding:16px 36px;
+
+    color:white;
+    font-weight:600;
+    font-size:15px;
+
+    background:linear-gradient(
+        110deg,
+        #000000 0%,
+        #0a1a5e 50%,
+        #0042c7 100%
+    );
+
+    transition:all .35s ease;
+}
+
+.submit-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+    0 6px 24px rgba(0,66,199,.30);
+}
+
+.submit-btn::after{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-80%;
+
+    width:50%;
+    height:100%;
+
+    background:linear-gradient(
+        105deg,
+        transparent 40%,
+        rgba(255,255,255,.15) 50%,
+        transparent 60%
+    );
+
+    transform:skewX(-15deg);
+    transition:left .55s ease;
+}
+
+.submit-btn:hover::after{
+    left:140%;
+}
+
+footer{
+    padding:40px 0;
+    border-top:1px solid var(--border);
+}
+
+footer p{
+    color:var(--muted);
+    font-size:14px;
+}
+
+@media(max-width:900px){
+
+    .container{
+        padding-left:24px;
+        padding-right:24px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+        gap:48px;
+    }
+
+    .section{
+        padding:80px 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container nav">
+        <a href="index.html" class="home-btn">
+            ← Home
+        </a>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+
+        <div class="section-label">
+            Contact Us
+        </div>
+
+        <h1>
+            Let's build something exceptional together.
+        </h1>
+
+        <p>
+            Whether you're looking to launch a website,
+            modernize your business, improve your online
+            presence, or discuss a custom project, we're
+            ready to help.
+        </p>
+
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="section">
+    <div class="container">
+
+        <div class="grid">
+
+            <div>
+
+                <div class="section-label">
+                    Get In Touch
+                </div>
+
+                <h2 class="section-title">
+                    We'd love to hear about your project.
+                </h2>
+
+                <p>
+                    Tell us about your business, your goals,
+                    and the challenges you're facing. We'll
+                    help you identify the right digital
+                    solutions for your needs.
+                </p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <h3 class="feature-title">
+                    Contact Information
+                </h3>
+
+                <p>
+                    Email<br>
+                    hello@algorithmclub.com
+                </p>
+
+                <br>
+
+                <p>
+                    Business Hours<br>
+                    Monday - Saturday<br>
+                    9:00 AM - 7:00 PM
+                </p>
+
+                <br>
+
+                <p>
+                    Response Time<br>
+                    Within 24 Hours
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <div class="section-label">
+            Send A Message
+        </div>
+
+        <h2 class="section-title">
+            Start your digital transformation.
+        </h2>
+
+        <form class="contact-form">
+
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" required>
+            </div>
+
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" required>
+            </div>
+
+            <div class="input-group">
+                <label>Business Name</label>
+                <input type="text">
+            </div>
+
+            <div class="input-group">
+                <label>Message</label>
+                <textarea rows="6" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Send Message
+            </button>
+
+        </form>
+
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>© 2026 The Algorithm Club. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
+
