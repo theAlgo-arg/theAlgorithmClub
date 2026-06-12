@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | The Algorithm Club</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #fbf9f9;
+            --text: #1b1c1c;
+            --muted: #4c4546;
+            --primary: #000000;
+            --secondary: #0042c7;
+            --accent: #5b8fff;
+            --border: #cfc4c5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.7;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: auto;
+            padding-left: 64px;
+            padding-right: 64px;
+        }
+
+        /* ===========================
+   HEADER
+=========================== */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(251, 249, 249, .85);
+            border-bottom: 1px solid rgba(0, 0, 0, .08);
+        }
+
+        .nav {
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .home-btn {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        .home-btn::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                    var(--secondary),
+                    var(--accent));
+            transition: .3s;
+        }
+
+        .home-btn:hover::after {
+            width: 100%;
+        }
+
+        /* ===========================
+   HERO
+=========================== */
+
+        .hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(0, 66, 199, .12),
+                    transparent 70%);
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+
+            background: linear-gradient(90deg,
+                    var(--secondary),
+                    var(--accent));
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            margin-bottom: 20px;
+        }
+
+        .last-updated {
+            display: inline-block;
+
+            padding: 8px 14px;
+
+            background: white;
+            border: 1px solid var(--border);
+
+            color: var(--muted);
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(3rem, 7vw, 5rem);
+            line-height: 1.05;
+            font-weight: 700;
+            max-width: 900px;
+            margin-bottom: 24px;
+        }
+
+        .hero p {
+            max-width: 750px;
+            font-size: 18px;
+            color: var(--muted);
+        }
+
+        /* ===========================
+   DIVIDER
+=========================== */
+
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(0, 66, 199, .25),
+                    transparent);
+        }
+
+        /* ===========================
+   MAIN CONTENT
+=========================== */
+
+        .section {
+            padding: 120px 0;
+        }
+
+        .policy-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* ===========================
+   TABLE OF CONTENTS
+=========================== */
+
+        .toc {
+            position: sticky;
+            top: 120px;
+
+            background: white;
+            border: 1px solid var(--border);
+
+            padding: 30px;
+        }
+
+        .toc h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .toc a {
+            display: block;
+            text-decoration: none;
+
+            color: var(--muted);
+
+            margin-bottom: 12px;
+
+            transition: .25s;
+        }
+
+        .toc a:hover {
+            color: var(--secondary);
+        }
+
+        .terms-content {
+            width: 100%;
+        }
+
+        /* ===========================
+   POLICY CARDS
+=========================== */
+
+        .terms-block {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            padding: 40px;
+
+            margin-bottom: 32px;
+
+            transition: .3s;
+        }
+
+        .terms-block:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 30px rgba(0, 66, 199, .08);
+        }
+
+        .terms-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 30px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .terms-block p {
+            color: var(--muted);
+            font-size: 17px;
+        }
+
+        .terms-block ul {
+            margin-top: 20px;
+            padding-left: 24px;
+        }
+
+        .terms-block li {
+            color: var(--muted);
+            margin-bottom: 12px;
+            font-size: 17px;
+        }
+
+        .terms-block strong {
+            color: var(--text);
+        }
+
+        /* ===========================
+   CTA
+=========================== */
+
+        .cta {
+            padding: 140px 0;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            margin-bottom: 24px;
+        }
+
+        .cta p {
+            max-width: 700px;
+            margin: auto;
+            color: var(--muted);
+            margin-bottom: 40px;
+        }
+
+        /* ===========================
+   BUTTON
+=========================== */
+
+        .submit-btn {
+            display: inline-block;
+            text-decoration: none;
+
+            position: relative;
+            overflow: hidden;
+
+            padding: 16px 36px;
+
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+
+            background: linear-gradient(110deg,
+                    #000000 0%,
+                    #0a1a5e 50%,
+                    #0042c7 100%);
+
+            transition: all .35s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 6px 24px rgba(0, 66, 199, .30);
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -80%;
+
+            width: 50%;
+            height: 100%;
+
+            background: linear-gradient(105deg,
+                    transparent 40%,
+                    rgba(255, 255, 255, .15) 50%,
+                    transparent 60%);
+
+            transform: skewX(-15deg);
+            transition: left .55s ease;
+        }
+
+        .submit-btn:hover::after {
+            left: 140%;
+        }
+
+        /* ===========================
+   FOOTER
+=========================== */
+
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+        }
+
+        footer p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* ===========================
+   MOBILE
+=========================== */
+
+        @media(max-width:900px) {
+
+            .container {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .policy-container {
+                grid-template-columns: 1fr;
+            }
+
+            .toc {
+                position: relative;
+                top: auto;
+                margin-bottom: 32px;
+            }
+
+            .section {
+                padding: 80px 0;
+            }
+
+            .terms-block {
+                padding: 28px;
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+
+            .terms-block p,
+            .terms-block li {
+                font-size: 16px;
+            }
+
+            .cta {
+                padding: 100px 0;
+            }
+        }
+        .toc-scroll {
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+.hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+}
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container nav">
+            <a href="index.html" class="home-btn">
+                ← Home
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+
+        <div class="container">
+
+            <div class="section-label">
+                Privacy Policies 
+            </div>
+
+            <h1>
+                Privacy first. Transparency always.
+            </h1>
+
+            <p>
+    This Privacy Policy explains what information The Algorithm Club
+    collects from clients, visitors, and users, why we collect it,
+    how we use it, when it may be shared, and the measures we take
+    to protect it.
+            </p>
+
+        </div>
+
+    </section>
+
+    <div class="divider"></div>
+    <section class="section">
+
+        <div class="container policy-container">
+
+            <div class="toc">
+                <div class="toc-scroll">
+                <h3>Table of Contents</h3>
+                <a href="#sec-01">01. Introduction</a>
+                <a href="#sec-01">02. What Information We Collect</a>
+                <a href="#sec-03">03. Why We Collect Information</a>
+                <a href="#sec-04">04. Information Sharing & Disclosure</a>
+                <a href="#sec-05">05. How Long We Keep Information</a>
+                <a href="#sec-06">06. How We Protect Information</a>
+                <a href="#sec-07">07. Analytics & Website Usage Information</a>
+                <a href="#sec-08">08. Your Rights</a>
+ 
+                </div>
+   
+            </div>
+
+            <div class="terms-content">
+
+                <div class="terms-block" id="sec-01">
+                    <div class="section-label">01</div>
+                    <h2 class="section-title">Introduction</h2>
+
+                    <p>
+    The Algorithm Club provides website development,
+    maintenance, digital consulting, advertising support,
+    online business integration, and related digital services.
+    This Privacy Policy explains how we collect, use,
+    store, share, and protect information obtained through
+    our services, website, communications, and business operations.
+                    </p>
+                </div>
+
+                                <div class="terms-block" id="sec-02">
+                    <div class="section-label">02</div>
+                    <h2 class="section-title">What Information We Collect</h2>
+
+
+<p> The Algorithm Club may collect, receive, access, process, store, organize, analyze, transfer, maintain, or otherwise handle information reasonably necessary to provide requested services, fulfill contractual obligations, operate its business, maintain security, process payments, manage projects, support Clients, and comply with applicable legal requirements. </p> <p> Information collected may include, but is not limited to: </p> <h2>Contact Information</h2> <ul> <li>Full names</li> <li>Email addresses</li> <li>Telephone numbers</li> <li>Business contact information</li> <li>Information relating to owners, employees, representatives, contractors, or other authorized persons acting on behalf of a Client</li> </ul> <p> This information may be used to communicate regarding quotations, proposals, project updates, support requests, invoices, payments, service notices, maintenance activities, and other business matters. </p> <h2>Business Information</h2> <ul> <li>Business names</li> <li>Business types</li> <li>Industry classifications</li> <li>Business descriptions</li> <li>Products and services offered by the Client</li> <li>Business objectives and project requirements</li> <li>Company registration information</li> <li>Tax-related information where required</li> <li>Licensing and compliance information where required</li> </ul> <p> This information may be used to determine suitable development, design, maintenance, infrastructure, advertising, consulting, and support services. </p> <h2>Account & Access Information</h2> <ul> <li>Domain management information</li> <li>Hosting information</li> <li>Cloud infrastructure information</li> <li>Website management information</li> <li>Administrative credentials</li> <li>Authentication information</li> <li>API credentials</li> <li>Integration credentials</li> <li>Platform access information</li> </ul> <p> This information may be used to configure, maintain, troubleshoot, deploy, secure, migrate, monitor, and support digital services. </p> <h2>Social Media & Advertising Information</h2> <ul> <li>Social media profiles</li> <li>Social media account information</li> <li>Advertising account information</li> <li>Business manager information</li> <li>Campaign information</li> <li>Audience information</li> <li>Marketing information</li> <li>Performance information</li> </ul> <p> This information may be used to integrate social media platforms, display business information on websites, manage advertising campaigns, analyze performance, and provide related marketing services. </p> <h2>Financial Information</h2> <ul> <li>Billing information</li> <li>Invoice information</li> <li>Transaction information</li> <li>Payment verification information</li> <li>Refund-related information</li> <li>Bank account information where reasonably required</li> </ul> <p> This information may be used to verify payments, issue invoices, process refunds where applicable, maintain financial records, and comply with accounting or legal obligations. </p> <h2>Project & Service Information</h2> <ul> <li>Project specifications</li> <li>Technical requirements</li> <li>Design requirements</li> <li>Development requirements</li> <li>Consultation records</li> <li>Support records</li> <li>Service requests</li> <li>Maintenance records</li> <li>Configuration information</li> <li>Deployment information</li> <li>Project documentation</li> </ul> <p> This information may be used to plan, develop, maintain, support, improve, and deliver requested services. </p> <h2>Media & Content</h2> <ul> <li>Images</li> <li>Videos</li> <li>Audio files</li> <li>Logos</li> <li>Branding materials</li> <li>Documents</li> <li>Marketing materials</li> <li>Website content</li> <li>Product information</li> <li>Business content</li> <li>Creative assets</li> <li>Digital assets</li> </ul> <p> These materials may be used solely for the creation, maintenance, improvement, operation, marketing, or support of services requested by the Client. </p> <h2>Communications</h2> <ul> <li>Emails</li> <li>Messages</li> <li>Support requests</li> <li>Meeting records</li> <li>Call records</li> <li>Consultation records</li> <li>Project discussions</li> <li>Feedback</li> <li>Correspondence</li> </ul> <p> Communications may be retained for project management, support, dispute resolution, service improvement, security, and business record purposes. </p> <h2>Technical Information</h2> <ul> <li>IP addresses</li> <li>Browser information</li> <li>Device information</li> <li>Operating system information</li> <li>Network information</li> <li>Usage information</li> <li>Diagnostic information</li> <li>Error reports</li> <li>Log files</li> <li>Security logs</li> <li>Analytics information</li> </ul> <p> This information may be used to maintain security, improve performance, diagnose technical issues, prevent abuse, and support service delivery. </p> <h2>Verification & Compliance Information</h2> <ul> <li>Identity verification information</li> <li>Ownership verification information</li> <li>Authorization records</li> <li>Contracts</li> <li>Agreements</li> <li>Proposals</li> <li>Quotations</li> <li>Invoices</li> <li>Purchase orders</li> <li>Government-issued business documents</li> <li>Registration certificates</li> <li>Permits</li> <li>Licenses</li> </ul> <p> This information may be used to verify ownership, confirm authorization, prevent fraud, satisfy legal requirements, and protect legitimate business interests. </p> <h2>Other Information</h2> <p> The Algorithm Club may collect any additional information voluntarily provided by a Client or reasonably required to provide requested services, fulfill contractual obligations, maintain security, process payments, manage projects, resolve disputes, or operate its business. </p> <p> <b>Important:</b> The Algorithm Club does not intentionally request information that is not reasonably necessary for the provision of requested services. Where a service can be reasonably provided without certain information, such information may not be requested. </p>
+
+
+                </div>
+
+
+
+
+                <div class="terms-block" id="sec-03">
+                    <div class="section-label">03</div>
+                    <h2 class="section-title">Why We Collect Information</h2>
+
+
+
+
+<p>
+The Algorithm Club collects information only where reasonably necessary
+to provide requested services, fulfill contractual obligations, maintain
+business operations, comply with legal requirements, and support Clients.
+</p>
+
+<p>
+Depending on the nature of the services requested, information may be
+collected and used for the following purposes:
+</p>
+
+<ul>
+
+<li>
+<b>Service Delivery:</b> To plan, design, develop, deploy, maintain,
+support, improve, and manage websites, applications, advertising
+campaigns, digital platforms, and other requested services.
+</li>
+
+<li>
+<b>Project Management:</b> To understand business requirements,
+determine project scope, estimate costs, allocate resources,
+coordinate project activities, and deliver agreed services.
+</li>
+
+<li>
+<b>Client Communication:</b> To communicate regarding quotations,
+proposals, invoices, payments, project updates, maintenance,
+support requests, service notices, and other business matters.
+</li>
+
+<li>
+<b>Advertising & Marketing Services:</b> To create, manage,
+optimize, monitor, and evaluate advertising campaigns,
+marketing activities, audience targeting, and related services.
+</li>
+
+<li>
+<b>Website & Platform Configuration:</b> To configure domains,
+hosting services, cloud infrastructure, email services,
+integrations, security systems, analytics tools, and related
+technical resources.
+</li>
+
+<li>
+<b>Payment Processing:</b> To verify payments, issue invoices,
+maintain financial records, process refunds where applicable,
+and manage financial transactions relating to services.
+</li>
+
+<li>
+<b>Security & Fraud Prevention:</b> To protect systems,
+accounts, services, infrastructure, Clients, and business
+operations from unauthorized access, misuse, fraud,
+security incidents, or other harmful activities.
+</li>
+
+<li>
+<b>Legal & Compliance Requirements:</b> To comply with
+applicable laws, regulations, legal obligations,
+verification requirements, accounting requirements,
+tax obligations, and dispute resolution processes.
+</li>
+
+<li>
+<b>Service Improvement:</b> To analyze service performance,
+identify technical issues, improve reliability,
+improve user experience, and enhance service quality.
+</li>
+
+<li>
+<b>Business Operations:</b> To maintain records, manage
+business relationships, perform administrative activities,
+and operate The Algorithm Club's business.
+</li>
+
+</ul>
+
+<p>
+The Algorithm Club does not intentionally collect information
+for purposes unrelated to the services requested by the Client
+or the legitimate operation of its business.
+</p>
+
+
+                </div>
+                <div class="terms-block" id="sec-04">
+                    <div class="section-label">04</div>
+                    <h2 class="section-title">Information Sharing & Disclosure</h2>
+
+ 
+
+
+<p>
+The Algorithm Club does not sell personal information, business
+information, project information, or Client information.
+</p>
+
+<p>
+Information may be shared only where reasonably necessary to
+provide requested services, fulfill contractual obligations,
+operate business systems, comply with legal requirements,
+protect legitimate interests, or maintain security.
+</p>
+
+<p>
+Information may be shared with:
+</p>
+
+<ul>
+
+<li>
+<b>Hosting Providers:</b> Where information must be stored,
+processed, hosted, backed up, deployed, or maintained as part
+of a website, application, platform, or related service.
+</li>
+
+<li>
+<b>Cloud Infrastructure Providers:</b> Where infrastructure,
+storage, databases, networking, security systems, backups,
+or computing resources are required.
+</li>
+
+<li>
+<b>Domain Registrars:</b> Where information is required to
+register, transfer, renew, manage, verify, or maintain domain names.
+</li>
+
+<li>
+<b>Advertising Platforms:</b> Where information is necessary
+to create, manage, optimize, monitor, or evaluate advertising
+campaigns and related marketing activities.
+</li>
+
+<li>
+<b>Analytics Providers:</b> Where information is required to
+measure performance, analyze traffic, evaluate campaigns,
+or improve services.
+</li>
+
+<li>
+<b>Payment Processors & Financial Service Providers:</b>
+Where information is necessary to process payments,
+verify transactions, issue refunds, maintain financial records,
+or comply with financial obligations.
+</li>
+
+<li>
+<b>Professional Advisors:</b> Including accountants,
+auditors, legal advisors, consultants, contractors,
+or service providers assisting with business operations.
+</li>
+
+<li>
+<b>Government Authorities & Legal Bodies:</b> Where disclosure
+is required by law, regulation, court order, legal process,
+government request, or other legally enforceable obligation.
+</li>
+
+<li>
+<b>Security & Fraud Prevention Services:</b> Where information
+is necessary to investigate, prevent, detect, respond to,
+or mitigate security incidents, fraud, abuse, unauthorized access,
+or unlawful activity.
+</li>
+
+</ul>
+
+<p>
+The Algorithm Club may utilize third-party service providers
+to support the delivery of services. Such providers may change
+from time to time according to operational, technical, security,
+commercial, or business requirements.
+</p>
+
+<p>
+The Algorithm Club does not intentionally disclose information
+to unrelated third parties except where reasonably necessary
+for the purposes described in this Privacy Policy.
+</p>
+
+
+                </div>
+               <div class="terms-block" id="sec-05">
+                    <div class="section-label">05</div>
+                    <h2 class="section-title">How Long We Keep Information</h2>
+
+   <p> The Algorithm Club retains information only for as long as reasonably necessary to provide services, maintain business operations, fulfill contractual obligations, comply with legal requirements, resolve disputes, protect legitimate business interests, and support ongoing Client relationships. </p> <ul> <li> <b>Active Services:</b> Information may be retained for the duration of any active project, maintenance plan, support agreement, hosting service, advertising campaign, subscription, or other ongoing service relationship. </li> <li> <b>Project Records:</b> Project files, communications, documentation, configurations, and related records may be retained after project completion for support, maintenance, reference, recovery, dispute resolution, security, or future service purposes. </li> <li> <b>Financial Records:</b> Invoices, payment records, transaction information, refund records, accounting records, and related documentation may be retained as required by applicable legal, tax, accounting, or regulatory obligations. </li> <li> <b>Backup Copies:</b> Information may continue to exist within backup systems, archives, disaster recovery systems, security copies, or similar storage systems for a reasonable period following deletion from active systems. </li> <li> <b>Legal Requirements:</b> Certain information may be retained where required by law, legal process, regulatory requirements, fraud prevention requirements, security investigations, contractual obligations, or dispute resolution needs. </li> </ul> <p> Clients may request the deletion of certain information where such deletion is reasonably possible and permitted by applicable law. </p> <p> The deletion of information may affect The Algorithm Club's ability to provide future services, restore historical projects, recover previous configurations, continue support services, or process future renewals. Future services may require previously deleted information to be provided again. </p>
+                </div>
+                           <div class="terms-block" id="sec-06">
+                    <div class="section-label">06</div>
+                    <h2 class="section-title">How We Protect Information</h2>
+
+  <p> The Algorithm Club implements reasonable administrative, technical, organizational, and operational measures designed to protect information against unauthorized access, disclosure, alteration, misuse, loss, destruction, or other security risks. </p> <ul> <li> <b>Access Controls:</b> Access to information is restricted to individuals, personnel, contractors, service providers, or authorized representatives who reasonably require access to perform their duties or provide requested services. </li> <li> <b>Secure Storage:</b> Information may be stored using secure databases, cloud infrastructure, hosting services, backup systems, file storage systems, and related technology services selected according to business, technical, security, and operational requirements. </li> <li> <b>Redundancy & Backups:</b> Information may be stored across multiple systems, backup locations, disaster recovery systems, or archived storage systems to reduce the risk of accidental loss, corruption, destruction, or service interruption. </li> <li> <b>Security Monitoring:</b> Reasonable efforts may be made to monitor systems, detect unauthorized access attempts, investigate security incidents, and maintain the security of services and infrastructure. </li> <li> <b>Service Providers:</b> The Algorithm Club may utilize third-party providers that maintain their own security, operational, and compliance practices to support the delivery of services. </li> <li> <b>Data Integrity:</b> Reasonable measures may be implemented to protect information from accidental modification, corruption, deletion, or unauthorized alteration. </li> </ul> <p> While The Algorithm Club takes reasonable steps to protect information, no method of storage, transmission, processing, or electronic communication can be guaranteed to be completely secure. </p> <p> The Algorithm Club cannot guarantee absolute security and shall not be responsible for security incidents, cyberattacks, unauthorized access, infrastructure failures, third-party service failures, or other events beyond its reasonable control. </p>
+                </div>
+               <div class="terms-block" id="sec-07">
+                    <div class="section-label">07</div>
+                    <h2 class="section-title">Analytics & Website Usage Information</h2>
+
+ <p> The Algorithm Club may utilize analytics tools, performance monitoring tools, advertising tools, cookies, pixels, and similar technologies to understand how visitors interact with its website, services, advertisements, and digital platforms. </p> <p> Such tools may collect information including: </p> <ul> <li>IP addresses</li> <li>Browser information</li> <li>Device information</li> <li>Operating system information</li> <li>Website usage information</li> <li>Pages visited</li> <li>Session information</li> <li>Referral sources</li> <li>Advertising interactions</li> <li>General geographic information</li> <li>Performance and diagnostic information</li> </ul> <p> This information may be used to improve website performance, measure advertising effectiveness, understand visitor behavior, improve user experience, maintain security, diagnose technical issues, and support business operations. </p> <p> The Algorithm Club may utilize third-party analytics, advertising, performance monitoring, or measurement providers. Such providers may process information in accordance with their own privacy policies and terms. </p> <p> Visitors may disable certain cookies or tracking technologies through browser settings where supported, although some website functionality may be affected. </p>
+                </div>
+
+                <div class="terms-block" id="sec-08">
+                    <div class="section-label">08</div>
+                    <h2 class="section-title">Your Rights</h2>
+
+<p> Subject to applicable law, Clients may have certain rights regarding information maintained by The Algorithm Club. </p> <ul> <li> <b>Access:</b> Clients may request information regarding the categories of information maintained by The Algorithm Club and how such information is used. </li> <li> <b>Correction:</b> Clients may request correction of inaccurate, incomplete, outdated, or incorrect information. </li> <li> <b>Deletion:</b> Clients may request deletion of information that is no longer required for active services, legal obligations, accounting purposes, security purposes, or legitimate business interests. </li> <li> <b>Withdrawal of Information:</b> Clients may choose not to provide certain information; however, doing so may limit The Algorithm Club's ability to provide requested services. </li> <li> <b>Service Continuity:</b> Clients acknowledge that the deletion of certain information may affect maintenance, support, renewals, project recovery, historical records, future development work, or the continued provision of certain services. </li> <li> <b>Future Services:</b> Where information has been deleted at a Client's request, The Algorithm Club may require such information to be provided again before future services can be delivered. </li> </ul> <p> Requests relating to information maintained by The Algorithm Club may be submitted through the contact methods published on The Algorithm Club's official website. </p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="cta">
+
+        <div class="container">
+
+            <div class="section-label">
+                The Algorithm Club
+            </div>
+
+            <h2>
+                Questions About Your Data?
+            </h2>
+
+            <p>
+    Contact us if you require clarification regarding the
+    information we collect, how it is used, how it may be
+    shared, how it is protected, or your rights relating
+    to that information.
+            </p>
+
+            <a href="contact.html" class="submit-btn">
+                Contact Us
+            </a>
+
+        </div>
+
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 The Algorithm Club. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
