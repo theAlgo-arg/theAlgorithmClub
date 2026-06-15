@@ -282,6 +282,14 @@ nav a:not([class*="border-b"]):hover::after { width: 100%; }
   #mobile-menu nav a:last-child { border-bottom: none; }
   #mobile-menu-toggle { min-width: 44px; min-height: 44px; }
   #hero-section .max-w-container-max { padding-top: 32px; padding-bottom: 32px; }
+@media(max-width:480px){
+  footer > div {
+    grid-template-columns: 1fr !important;
+  }
+  footer > div > div:first-child {
+    grid-column: 1;
+  }
+}
 }
 #hero-section > * { position: relative; z-index: 1; }
 
