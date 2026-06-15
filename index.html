@@ -282,6 +282,37 @@ nav a:not([class*="border-b"]):hover::after { width: 100%; }
   #mobile-menu nav a:last-child { border-bottom: none; }
   #mobile-menu-toggle { min-width: 44px; min-height: 44px; }
   #hero-section .max-w-container-max { padding-top: 32px; padding-bottom: 32px; }
+
+  /* ── Footer responsive ── */
+  footer > div {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 32px 24px !important;
+    padding: 40px 24px 16px !important;
+  }
+  footer > div > div:first-child {
+    grid-column: 1 / -1;
+  }
+  footer .font-headline-md {
+    font-size: 20px !important;
+  }
+  footer p.text-body-md {
+    font-size: 15px !important;
+    max-width: 100% !important;
+  }
+  footer ul {
+    gap: 16px !important;
+  }
+  footer .col-span-12.flex.justify-end {
+    grid-column: 1 / -1;
+    justify-content: flex-start !important;
+    margin-top: 8px !important;
+    padding-top: 16px !important;
+  }
+  footer .col-span-12.flex.justify-end p {
+    font-size: 13px !important;
+  }
+}
+
 @media(max-width:480px){
   footer > div {
     grid-template-columns: 1fr !important;
