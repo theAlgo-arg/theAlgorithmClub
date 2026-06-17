@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaidya — Ayurvedic Teleconsultation</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --saffron:    #C8621A;
+  --saffron-lt: #F2A45A;
+  --saffron-pale: #FDF3E8;
+  --gold:       #B8860B;
+  --gold-lt:    #E8C97A;
+  --gold-pale:  #FBF5E0;
+  --bark:       #5C3D1E;
+  --bark-lt:    #8B6040;
+  --cream:      #FAF6EE;
+  --cream-dk:   #EFE8D8;
+  --green:      #3A5A3C;
+  --green-lt:   #6A9B6C;
+  --green-pale: #EAF2EA;
+  --ink:        #1E1208;
+  --ink-lt:     #4A3520;
+  --muted:      #8A7260;
+  --border:     rgba(92,61,30,0.12);
+  --border-md:  rgba(92,61,30,0.22);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  color: var(--ink);
+  background: var(--cream);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ---- ORNAMENTAL SVG BG PATTERNS ---- */
+.mandala-bg {
+  position: absolute; pointer-events: none;
+  opacity: 0.04;
+}
+
+/* ---- NAV ---- */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250,246,238,0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 6%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 70px;
+}
+.logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px; font-weight: 600;
+  color: var(--bark);
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-leaf {
+  width: 22px; height: 22px;
+  display: inline-block;
+}
+.nav-links { display: flex; align-items: center; gap: 36px; list-style: none; }
+.nav-links a {
+  text-decoration: none; font-size: 13px; font-weight: 400;
+  color: var(--bark-lt); letter-spacing: 1.5px; text-transform: uppercase;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--saffron); }
+.nav-cta {
+  background: var(--saffron);
+  color: white; border: none;
+  padding: 10px 24px; border-radius: 2px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; display: inline-block;
+}
+.nav-cta:hover { background: var(--bark); transform: translateY(-1px); }
+
+/* ---- HERO ---- */
+.hero {
+  min-height: 100vh;
+  padding: 100px 6% 80px;
+  position: relative;
+  overflow: hidden;
+  background: var(--cream);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px; align-items: center;
+}
+
+/* Organic background shapes */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.hero-orb-1 {
+  width: 700px; height: 700px;
+  top: -200px; right: -200px;
+  background: radial-gradient(circle, rgba(200,98,26,0.07) 0%, transparent 65%);
+}
+.hero-orb-2 {
+  width: 400px; height: 400px;
+  bottom: -100px; left: -100px;
+  background: radial-gradient(circle, rgba(58,90,60,0.06) 0%, transparent 65%);
+}
+
+/* Decorative botanical line art */
+.botanical {
+  position: absolute; right: 42%; top: 8%;
+  width: 1px; height: 75%;
+  background: linear-gradient(to bottom, transparent, var(--border-md), transparent);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px;
+}
+.eyebrow-line { height: 1px; width: 40px; background: var(--saffron); }
+.eyebrow-text {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--saffron); font-weight: 500;
+}
+
+h1.hero-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(44px, 5.5vw, 72px);
+  font-weight: 300;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+h1.hero-heading em {
+  font-style: italic;
+  color: var(--saffron);
+}
+h1.hero-heading strong {
+  font-weight: 600;
+  display: block;
+}
+
+.hero-desc {
+  font-size: 16px; line-height: 1.8; color: var(--muted);
+  max-width: 480px; margin-bottom: 40px;
+  font-weight: 300;
+}
+.hero-desc span { color: var(--bark); font-weight: 400; }
+
+.hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.btn-primary {
+  background: var(--saffron); color: white;
+  border: none; padding: 15px 34px; border-radius: 2px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.25s; text-decoration: none; display: inline-block;
+}
+.btn-primary:hover { background: var(--bark); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(92,61,30,0.2); }
+.btn-ghost {
+  background: transparent; color: var(--bark);
+  border: 1px solid var(--border-md); padding: 14px 32px; border-radius: 2px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; display: inline-block;
+}
+.btn-ghost:hover { border-color: var(--saffron); color: var(--saffron); }
+
+.hero-trust {
+  display: flex; gap: 32px; margin-top: 52px; padding-top: 32px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.trust-item { display: flex; flex-direction: column; gap: 4px; }
+.trust-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px; font-weight: 600; color: var(--bark);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.trust-label { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+.trust-sep { width: 1px; background: var(--border); align-self: stretch; }
+
+/* Hero right — consultation card */
+.hero-visual {
+  position: relative;
+  display: flex; flex-direction: column; gap: 16px;
+  animation: riseIn 1s ease forwards;
+}
+@keyframes riseIn { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+.consult-card {
+  background: white;
+  border: 1px solid var(--border-md);
+  border-radius: 4px;
+  padding: 26px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.consult-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--saffron), var(--gold-lt));
+}
+.card-dosha {
+  display: flex; gap: 8px; margin-bottom: 20px;
+}
+.dosha-pill {
+  font-size: 10px; letter-spacing: 1.5px; font-weight: 500;
+  text-transform: uppercase; padding: 5px 12px; border-radius: 100px;
+  border: 1px solid var(--border);
+  cursor: pointer; transition: all 0.15s; color: var(--muted);
+}
+.dosha-pill.active { background: var(--saffron-pale); border-color: var(--saffron); color: var(--saffron); }
+.dosha-pill:hover { border-color: var(--saffron-lt); color: var(--saffron); }
+
+.vaid-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.vaid-avatar {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold-pale), var(--cream-dk));
+  border: 2px solid var(--gold-lt);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 600; color: var(--bark);
+  flex-shrink: 0;
+}
+.vaid-info h3 { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--ink); }
+.vaid-info p { font-size: 12px; color: var(--muted); margin-top: 2px; letter-spacing: 0.3px; }
+.vaid-online {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--green); letter-spacing: 1px;
+  font-weight: 500; text-transform: uppercase;
+}
+.online-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-lt); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.4)} }
+
+.herb-tags { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 20px; }
+.herb-tag {
+  font-size: 10px; letter-spacing: 0.8px; font-weight: 400;
+  padding: 4px 10px; border-radius: 2px;
+  background: var(--cream-dk); color: var(--bark-lt);
+  border: 1px solid var(--border);
+}
+
+.time-slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-bottom: 18px; }
+.slot {
+  text-align: center; padding: 8px 4px; border-radius: 2px;
+  border: 1px solid var(--border);
+  font-size: 11px; font-weight: 400; color: var(--muted);
+  cursor: pointer; transition: all 0.15s; background: var(--cream);
+}
+.slot:hover { border-color: var(--saffron-lt); color: var(--saffron); background: var(--saffron-pale); }
+.slot.sel { background: var(--saffron); border-color: var(--saffron); color: white; }
+
+.book-row { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--border); }
+.consult-fee { font-family: 'Inter', sans-serif; font-size: 22px; color: var(--ink); font-weight: 600; letter-spacing: -0.5px; }
+.consult-fee span { font-size: 12px; color: var(--muted); font-family: 'Jost', sans-serif; font-weight: 300; }
+.book-btn {
+  background: var(--bark); color: white;
+  border: none; padding: 10px 22px; border-radius: 2px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.book-btn:hover { background: var(--saffron); }
+
+.mini-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.mini-c {
+  background: white; border: 1px solid var(--border); border-radius: 4px;
+  padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+}
+.mini-icon-wrap {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--saffron-pale);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+}
+.mini-label { font-size: 12px; font-weight: 500; color: var(--ink-lt); }
+.mini-sub { font-size: 10px; color: var(--muted); margin-top: 2px; letter-spacing: 0.3px; }
+
+/* ---- SECTION SHARED ---- */
+section { padding: 100px 6%; }
+.s-eyebrow { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.s-eline { height: 1px; width: 32px; background: var(--saffron); }
+.s-etxt { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--saffron); font-weight: 500; }
+.s-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(30px, 4vw, 48px);
+  font-weight: 300; line-height: 1.15; letter-spacing: -0.5px;
+  color: var(--ink); margin-bottom: 16px;
+}
+.s-heading em { font-style: italic; color: var(--saffron); }
+.s-heading strong { font-weight: 600; }
+.s-sub { font-size: 15px; line-height: 1.8; color: var(--muted); max-width: 520px; }
+
+/* ---- DOSHAS INTRO BAND ---- */
+.doshas-band {
+  background: var(--ink);
+  padding: 64px 6%;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+}
+.dosha-block {
+  padding: 40px 36px;
+  background: var(--ink);
+  transition: background 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.dosha-block::after {
+  content: '';
+  position: absolute; right: 0; top: 20%; bottom: 20%;
+  width: 1px; background: rgba(255,255,255,0.08);
+}
+.dosha-block:last-child::after { display: none; }
+.dosha-block:hover { background: var(--ink-lt); }
+.dosha-symbol {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px; font-weight: 300;
+  margin-bottom: 16px; display: block;
+}
+.dosha-block h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600;
+  color: white; margin-bottom: 8px; letter-spacing: 1px;
+}
+.dosha-block .dosha-sanskrit {
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 14px;
+}
+.dosha-block p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+/* ---- SPECIALTIES ---- */
+.spec-section { background: var(--cream-dk); }
+.spec-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px; margin-top: 52px;
+}
+.spec-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 4px; padding: 26px 20px;
+  cursor: pointer; transition: all 0.2s;
+  text-decoration: none; display: block;
+  position: relative; overflow: hidden;
+}
+.spec-card::before {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: var(--saffron); transform: scaleX(0);
+  transform-origin: left; transition: transform 0.25s;
+}
+.spec-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(92,61,30,0.1); }
+.spec-card:hover::before { transform: scaleX(1); }
+.spec-symbol { font-size: 26px; margin-bottom: 12px; display: block; }
+.spec-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px; font-weight: 600; color: var(--ink); margin-bottom: 4px;
+}
+.spec-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* ---- HOW IT WORKS ---- */
+.how-section { background: var(--cream); position: relative; overflow: hidden; }
+.how-section::before {
+  content: '';
+  position: absolute; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 1px; height: 100%; background: var(--border);
+}
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; margin-top: 60px; }
+.step {
+  padding: 40px 32px;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.step:last-child { border-right: none; }
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 56px; font-weight: 300;
+  color: var(--cream-dk); line-height: 1; margin-bottom: 20px;
+  -webkit-text-stroke: 1px var(--border-md);
+}
+.step-icon-wrap {
+  width: 46px; height: 46px; border-radius: 50%;
+  border: 1px solid var(--border-md);
+  background: white; display: flex; align-items: center;
+  justify-content: center; font-size: 22px;
+  margin-bottom: 16px;
+}
+.step h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 10px;
+}
+.step p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* ---- DOCTORS ---- */
+.doc-section { background: var(--saffron-pale); }
+.doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; margin-top: 52px; }
+.doc-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 28px 24px;
+  transition: all 0.2s;
+  position: relative;
+}
+.doc-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(92,61,30,0.1); }
+.dc-top { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 16px; }
+.dc-av {
+  width: 58px; height: 58px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600;
+  flex-shrink: 0; border: 2px solid;
+}
+.dc-av.a1 { background: var(--saffron-pale); color: var(--saffron); border-color: var(--saffron-lt); }
+.dc-av.a2 { background: var(--green-pale); color: var(--green); border-color: var(--green-lt); }
+.dc-av.a3 { background: var(--gold-pale); color: var(--gold); border-color: var(--gold-lt); }
+.dc-av.a4 { background: var(--cream-dk); color: var(--bark); border-color: var(--border-md); }
+.dc-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); }
+.dc-spec { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+.dc-exp { font-size: 12px; color: var(--saffron); margin-top: 4px; font-weight: 400; }
+.dc-rating { display: flex; align-items: center; gap: 6px; font-size: 13px; margin-bottom: 12px; }
+.dc-stars { color: var(--gold); letter-spacing: 1px; }
+.dc-rev { font-size: 12px; color: var(--muted); }
+.dc-herbs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.dc-herb {
+  font-size: 10px; letter-spacing: 0.5px; padding: 3px 9px;
+  border-radius: 2px; background: var(--cream-dk);
+  border: 1px solid var(--border); color: var(--bark-lt);
+}
+.dc-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--border); }
+.dc-fee { font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 600; color: var(--ink); letter-spacing: -0.5px; }
+.dc-fee small { font-size: 12px; color: var(--muted); font-family: 'Jost', sans-serif; font-weight: 300; }
+.dc-btn {
+  background: var(--saffron); color: white;
+  border: none; padding: 9px 20px; border-radius: 2px;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 500; letter-spacing: 2px;
+  text-transform: uppercase; cursor: pointer; transition: all 0.2s;
+}
+.dc-btn:hover { background: var(--bark); }
+
+/* ---- PHILOSOPHY SECTION ---- */
+.philosophy {
+  background: var(--bark);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; overflow: hidden;
+}
+.philo-text {
+  padding: 100px 8% 100px 6%;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.philo-text .s-heading { color: white; }
+.philo-text .s-sub { color: rgba(255,255,255,0.55); max-width: 440px; }
+.philo-text .s-etxt { color: var(--gold-lt); }
+.philo-text .s-eline { background: var(--gold-lt); }
+.philo-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px; font-style: italic;
+  color: rgba(255,255,255,0.35);
+  margin-top: 36px; padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  line-height: 1.6;
+}
+.philo-quote cite { display: block; margin-top: 10px; font-size: 12px; letter-spacing: 2px; font-style: normal; color: var(--gold-lt); text-transform: uppercase; }
+.philo-pillars {
+  background: var(--ink);
+  padding: 80px 8%;
+  display: flex; flex-direction: column; justify-content: center; gap: 24px;
+}
+.pillar { display: flex; gap: 20px; align-items: flex-start; }
+.pillar-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; font-weight: 300;
+  color: rgba(255,255,255,0.15);
+  line-height: 1; min-width: 36px;
+}
+.pillar h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px; font-weight: 600;
+  color: rgba(255,255,255,0.9); margin-bottom: 6px;
+}
+.pillar p { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.65; }
+
+/* ---- FEATURES ---- */
+.feat-section { background: var(--cream); }
+.feat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 52px; }
+.feat-card {
+  border: 1px solid var(--border);
+  border-radius: 4px; padding: 30px 26px;
+  background: white;
+  transition: all 0.2s;
+}
+.feat-card:hover { border-color: var(--saffron-lt); transform: translateY(-3px); box-shadow: 0 10px 32px rgba(200,98,26,0.08); }
+.feat-glyph {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1px solid var(--border-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 18px;
+  background: var(--saffron-pale);
+}
+.feat-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.feat-card p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+
+/* ---- TESTIMONIALS ---- */
+.testi-section { background: var(--cream-dk); }
+.testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 52px; }
+.testi-card {
+  background: white; border: 1px solid var(--border);
+  border-radius: 4px; padding: 28px 24px;
+}
+.testi-glyph { font-family: 'Cormorant Garamond', serif; font-size: 48px; color: var(--saffron-lt); line-height: 1; margin-bottom: 12px; }
+.testi-text { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--ink-lt); line-height: 1.7; margin-bottom: 20px; }
+.testi-author { display: flex; align-items: center; gap: 12px; }
+.testi-av {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; font-family: 'Cormorant Garamond', serif;
+}
+.testi-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+.testi-loc { font-size: 10px; color: var(--muted); margin-top: 1px; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ---- CTA ---- */
+.cta-section {
+  background: var(--saffron);
+  padding: 100px 6%;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 600px; height: 600px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  pointer-events: none;
+}
+.cta-section::after {
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 900px; height: 900px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.cta-section h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300; color: white; line-height: 1.2;
+  margin-bottom: 16px; letter-spacing: -0.5px;
+}
+.cta-section h2 em { font-style: italic; }
+.cta-section p { font-size: 15px; color: rgba(255,255,255,0.7); margin-bottom: 36px; }
+.btn-cta-white {
+  background: white; color: var(--saffron);
+  border: none; padding: 16px 40px; border-radius: 2px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 500; letter-spacing: 2.5px;
+  text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s; text-decoration: none; display: inline-block;
+}
+.btn-cta-white:hover { background: var(--ink); color: white; transform: translateY(-2px); }
+
+/* ---- FOOTER ---- */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.4);
+  padding: 52px 6%;
+  display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+.footer-brand .logo { color: rgba(255,255,255,0.9); margin-bottom: 14px; display: flex; }
+.footer-brand p { font-size: 12px; line-height: 1.7; color: rgba(255,255,255,0.3); max-width: 240px; }
+footer h4 { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+footer ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+footer ul li a { font-size: 13px; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+footer ul li a:hover { color: var(--saffron-lt); }
+.footer-bottom {
+  background: rgba(0,0,0,0.2);
+  padding: 16px 6%;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: rgba(255,255,255,0.2); gap: 16px; flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .hero, .philosophy { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .doshas-band { grid-template-columns: 1fr; }
+  .dosha-block::after { display: none; }
+  footer { grid-template-columns: 1fr 1fr; }
+  nav .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <svg class="logo-leaf" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M11 2C7 2 3 6 3 11C3 11 7 9 11 9C15 9 19 7 19 7C19 7 17 2 11 2Z" fill="#C8621A" opacity="0.8"/>
+      <path d="M11 9C11 9 9 13 9 17C9 19 10 20 11 20C12 20 13 19 13 17C13 13 11 9 11 9Z" fill="#5C3D1E" opacity="0.7"/>
+      <line x1="11" y1="9" x2="11" y2="20" stroke="#8B6040" stroke-width="0.5" opacity="0.5"/>
+    </svg>
+    Vaidya
+  </a>
+  <ul class="nav-links">
+    <li><a href="#doshas">Doshas</a></li>
+    <li><a href="#specialties">Treatments</a></li>
+    <li><a href="#doctors">Vaidyas</a></li>
+    <li><a href="#philosophy">Philosophy</a></li>
+  </ul>
+  <a href="#doctors" class="nav-cta">Consult Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="botanical"></div>
+
+  <div>
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Ancient Wisdom · Modern Healing</span>
+    </div>
+    <h1 class="hero-heading">
+      Heal from within,<br>
+      <em>the way nature</em><br>
+      <strong>intended</strong>
+    </h1>
+    <p class="hero-desc">
+      Connect with <span>certified Ayurvedic physicians</span> from India's finest gurukuls. Receive personalised treatments rooted in 5,000 years of Vedic science — from wherever you are.
+    </p>
+    <div class="hero-actions">
+      <a href="#doctors" class="btn-primary">Find Your Vaidya</a>
+      <a href="#doshas" class="btn-ghost">Know Your Dosha</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <span class="trust-num">800+</span>
+        <span class="trust-label">Certified Vaidyas</span>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <span class="trust-num">50K+</span>
+        <span class="trust-label">Consultations Done</span>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <span class="trust-num">96%</span>
+        <span class="trust-label">Patient Satisfaction</span>
+      </div>
+      <div class="trust-sep"></div>
+      <div class="trust-item">
+        <span class="trust-num">40+</span>
+        <span class="trust-label">Specialisations</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="consult-card">
+      <div class="card-dosha">
+        <div class="dosha-pill active" onclick="selectDosha(this)">Vata</div>
+        <div class="dosha-pill" onclick="selectDosha(this)">Pitta</div>
+        <div class="dosha-pill" onclick="selectDosha(this)">Kapha</div>
+      </div>
+      <div class="vaid-header">
+        <div class="vaid-avatar">DV</div>
+        <div class="vaid-info">
+          <h3>Dr. Deepa Varma</h3>
+          <p>Kayachikitsa · 16 years exp. · BAMS, MD</p>
+        </div>
+        <div class="vaid-online">
+          <span class="online-dot"></span> Available
+        </div>
+      </div>
+      <div class="herb-tags">
+        <span class="herb-tag">Arthritis</span>
+        <span class="herb-tag">Stress & Anxiety</span>
+        <span class="herb-tag">Skin Disorders</span>
+        <span class="herb-tag">Panchakarma</span>
+        <span class="herb-tag">Prakriti Analysis</span>
+      </div>
+      <div class="time-slots">
+        <div class="slot">9:00 AM</div>
+        <div class="slot sel">10:00 AM</div>
+        <div class="slot">11:00 AM</div>
+        <div class="slot">2:00 PM</div>
+      </div>
+      <div class="book-row">
+        <div class="consult-fee">₹399 <span>/ session</span></div>
+        <button class="book-btn" onclick="bookSlot(this)">Book Consultation</button>
+      </div>
+    </div>
+    <div class="mini-cards">
+      <div class="mini-c">
+        <div class="mini-icon-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22C12 22 5 16 5 10a7 7 0 0 1 14 0c0 6-7 12-7 12z"/><path d="M12 10c0-2 1.5-4 3-4" opacity="0.5"/></svg></div>
+        <div>
+          <div class="mini-label">Herbal Prescriptions</div>
+          <div class="mini-sub">Handwritten & signed</div>
+        </div>
+      </div>
+      <div class="mini-c">
+        <div class="mini-icon-wrap"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="1.5"/><path d="M9 12l-3 6M15 12l3 6M9 12c0 0 1-4 3-4s3 4 3 4"/><path d="M7 12h10"/></svg></div>
+        <div>
+          <div class="mini-label">Lifestyle Plan</div>
+          <div class="mini-sub">Diet, yoga & dinacharya</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOSHAS BAND -->
+<div class="doshas-band" id="doshas">
+  <div class="dosha-block">
+    <span class="dosha-symbol"><svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="var(--saffron-lt)" stroke-width="1" stroke-linecap="round"><path d="M8 20c4-8 12-12 20-8s8 16 0 18c-6 2-12-2-8-8s10-4 12 0"/><path d="M10 32c2-4 6-6 10-4s4 8 0 9c-3 1-6-1-4-4" opacity="0.5"/></svg></span>
+    <h3>Vata</h3>
+    <div class="dosha-sanskrit">वात · Air & Space</div>
+    <p>Governs movement, breathing, circulation, and nerve impulses. When balanced, brings creativity and vitality. When disturbed, causes anxiety and dryness.</p>
+  </div>
+  <div class="dosha-block">
+    <span class="dosha-symbol"><svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="var(--saffron-lt)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M24 42c-7 0-13-5-13-13 0-5 3-9 6-12-1 4 1 7 3 8 0-6 4-12 7-17 2 4 2 9 1 12 2-2 4-5 4-9 3 4 5 9 5 14 0 9-6 17-13 17z"/><path d="M24 36c-3 0-5-2-5-5 0-2 1-4 3-5 0 2 1 3 2 4 0-2 2-5 3-7 1 2 1 4 1 5 1-1 2-2 2-4 1 2 2 4 2 6 0 3-4 6-8 6z" stroke-width="0.8" opacity="0.6"/></svg></span>
+    <h3>Pitta</h3>
+    <div class="dosha-sanskrit">पित्त · Fire & Water</div>
+    <p>Governs digestion, metabolism, and transformation. When balanced, brings intelligence and courage. When disturbed, causes inflammation and anger.</p>
+  </div>
+  <div class="dosha-block">
+    <span class="dosha-symbol"><svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="var(--saffron-lt)" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="30" rx="14" ry="8"/><path d="M24 10c0 0-8 8-8 16" opacity="0.5"/><path d="M24 10c0 0 8 8 8 16" opacity="0.5"/><circle cx="24" cy="10" r="2.5" fill="var(--saffron-lt)" opacity="0.4"/></svg></span>
+    <h3>Kapha</h3>
+    <div class="dosha-sanskrit">कफ · Earth & Water</div>
+    <p>Governs structure, lubrication, and immunity. When balanced, brings strength and compassion. When disturbed, causes lethargy and congestion.</p>
+  </div>
+</div>
+
+<!-- SPECIALTIES -->
+<section class="spec-section" id="specialties">
+  <div class="s-eyebrow"><div class="s-eline"></div><span class="s-etxt">Treatment Areas</span></div>
+  <h2 class="s-heading">Ancient treatments for<br><em>every condition</em></h2>
+  <p class="s-sub">Our Vaidyas practise across the eight classical branches of Ashtanga Ayurveda and specialised healing arts.</p>
+
+  <div class="spec-grid">
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 24C14 24 6 18 6 11a8 8 0 0 1 16 0c0 7-8 13-8 13z"/><path d="M14 11v11M10 14c1-2 3-3 4-3"/></svg></span><div class="spec-name">Kayachikitsa</div><div class="spec-desc">General &amp; internal medicine</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6c-3 0-5 2-5 5 0 2 1 3 2 4-1 1-2 3-2 5 0 3 2 5 5 5h8c3 0 5-2 5-5 0-2-1-4-2-5 1-1 2-2 2-4 0-3-2-5-5-5-1 0-2 0-3 1-1-1-2-1-3-1z"/><path d="M14 10v8M11 14h6" opacity="0.5"/></svg></span><div class="spec-name">Manasroga</div><div class="spec-desc">Mental health &amp; psychiatry</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14c0 0 4-8 10-8s10 8 10 8-4 8-10 8S4 14 4 14z"/><circle cx="14" cy="14" r="3"/><circle cx="14" cy="14" r="1" fill="var(--saffron)" stroke="none"/></svg></span><div class="spec-name">Shalakya Tantra</div><div class="spec-desc">Eyes, ears, nose &amp; throat</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 24c-4 0-7-3-7-7 0-3 2-5 3-7-1 3 1 5 2 5 0-4 3-7 4-10 1 3 1 6 1 7 1-1 2-3 2-5 2 2 3 5 3 8 0 4-4 9-8 9z"/></svg></span><div class="spec-name">Panchakarma</div><div class="spec-desc">Detox &amp; rejuvenation therapy</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 20c0 0-6-3-6-9 0-2 2-4 4-4 1 0 2 1 2 1s1-1 2-1c2 0 4 2 4 4 0 6-6 9-6 9z"/><path d="M8 12c-2-1-4 0-4 2s2 4 4 4M20 12c2-1 4 0 4 2s-2 4-4 4"/><path d="M14 20v4" opacity="0.5"/></svg></span><div class="spec-name">Streeroga</div><div class="spec-desc">Women&#39;s health &amp; fertility</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="7" r="3"/><path d="M10 13c0 0-2 2-2 5h12c0-3-2-5-2-5"/><path d="M10 13h8"/><path d="M12 18v5M16 18v5"/></svg></span><div class="spec-name">Kaumarabhritya</div><div class="spec-desc">Paediatrics &amp; child care</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6c0-1.5 1.5-2 2.5-1.5L14 8l3.5-3.5C18.5 4 20 4.5 20 6c0 1-0.5 2-1.5 2.5L15 12l3.5 3.5c1 0.5 1.5 1.5 1.5 2.5 0 1.5-1.5 2-2.5 1.5L14 16l-3.5 3.5C9.5 20 8 19.5 8 18c0-1 0.5-2 1.5-2.5L13 12 9.5 8.5C8.5 8 8 7 8 6z"/></svg></span><div class="spec-name">Asthi &amp; Sandhi</div><div class="spec-desc">Bones, joints &amp; arthritis</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v4M14 20v4M4 14h4M20 14h4"/><path d="M7.5 7.5l2.8 2.8M17.7 17.7l2.8 2.8M7.5 20.5l2.8-2.8M17.7 10.3l2.8-2.8"/><circle cx="14" cy="14" r="3"/></svg></span><div class="spec-name">Rasayana</div><div class="spec-desc">Anti-ageing &amp; rejuvenation</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 22s-9-6-9-13a6 6 0 0 1 9-5 6 6 0 0 1 9 5c0 7-9 13-9 13z"/><path d="M9 13c1-2 3-3 5-2" opacity="0.5"/></svg></span><div class="spec-name">Hridroga</div><div class="spec-desc">Cardiovascular wellness</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 24C14 24 7 17 7 10c0-5 3-7 7-7s7 2 7 7c0 7-7 14-7 14z"/><path d="M14 10v12M10 13c2-2 4-2 4-2M18 13c-2-2-4-2-4-2" opacity="0.5"/></svg></span><div class="spec-name">Skin &amp; Hair</div><div class="spec-desc">Twak vikara &amp; keshya</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 15a8 8 0 1 1-8-9 6 6 0 0 0 8 9z"/><path d="M18 6l1 2M22 9l-2 1" opacity="0.5"/></svg></span><div class="spec-name">Nidra &amp; Stress</div><div class="spec-desc">Sleep disorders &amp; burnout</div></a>
+    <a class="spec-card" href="#doctors"><span class="spec-symbol"><svg viewBox="0 0 28 28" width="26" height="26" fill="none" stroke="var(--saffron)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12c0 5 4 9 8 9s8-4 8-9H6z"/><path d="M4 12h20"/><path d="M12 12V7c0-2 2-3 2-3s2 1 2 3v5" opacity="0.6"/></svg></span><div class="spec-name">Ahara Chikitsa</div><div class="spec-desc">Diet therapy &amp; nutrition</div></a>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="s-eyebrow"><div class="s-eline"></div><span class="s-etxt">The Process</span></div>
+  <h2 class="s-heading">Your healing journey<br><em>in four steps</em></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon-wrap"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5l4 4"/><path d="M8 11h6M11 8v6" opacity="0.5"/></svg></div>
+      <h3>Prakriti Assessment</h3>
+      <p>Answer a brief questionnaire about your mind-body constitution. We identify your Dosha balance to match you with the right Vaidya.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon-wrap"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M8 2v4M16 2v4"/><circle cx="9" cy="14" r="1" fill="var(--saffron)"/><circle cx="15" cy="14" r="1" fill="var(--saffron)"/></svg></div>
+      <h3>Choose Your Vaidya</h3>
+      <p>Browse qualified practitioners by specialisation, language, and availability. Read reviews and check credentials before booking.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon-wrap"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg></div>
+      <h3>Deep Consultation</h3>
+      <p>A thorough 30-60 min session via video. Your Vaidya performs nadi pariksha remotely, reviews your history, and understands the root cause.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <div class="step-icon-wrap"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22V12"/><path d="M12 12C12 12 6 10 6 5c0 0 4 0 6 3 2-3 6-3 6-3 0 5-6 7-6 7z"/></svg></div>
+      <h3>Receive Your Chikitsa</h3>
+      <p>Get a personalised treatment plan — herbal formulations, diet & lifestyle advice, yoga, and follow-up support for complete healing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORS -->
+<section class="doc-section" id="doctors">
+  <div class="s-eyebrow"><div class="s-eline"></div><span class="s-etxt">Our Vaidyas</span></div>
+  <h2 class="s-heading"><em>Certified practitioners</em><br>of classical Ayurveda</h2>
+  <p class="s-sub">All Vaidyas hold BAMS or MD (Ayurveda) degrees from accredited institutions and are registered with state Ayurvedic councils.</p>
+
+  <div class="doc-grid">
+    <div class="doc-card">
+      <div class="dc-top">
+        <div class="dc-av a1">DV</div>
+        <div>
+          <div class="dc-name">Dr. Deepa Varma</div>
+          <div class="dc-spec">Kayachikitsa · BAMS, MD</div>
+          <div class="dc-exp">16 years · Kerala tradition</div>
+        </div>
+      </div>
+      <div class="dc-rating"><span class="dc-stars">★★★★★</span><span class="dc-rev">&nbsp;4.9 (428 reviews)</span></div>
+      <div class="dc-herbs"><span class="dc-herb">Panchakarma</span><span class="dc-herb">Stress</span><span class="dc-herb">Arthritis</span><span class="dc-herb">Prakriti</span></div>
+      <div class="dc-footer">
+        <div class="dc-fee">₹399 <small>/ session</small></div>
+        <button class="dc-btn" onclick="bookDoc(this)">Book Now</button>
+      </div>
+    </div>
+    <div class="doc-card">
+      <div class="dc-top">
+        <div class="dc-av a2">RS</div>
+        <div>
+          <div class="dc-name">Dr. Rajan Sharma</div>
+          <div class="dc-spec">Rasayana & Anti-ageing</div>
+          <div class="dc-exp">22 years · Varanasi lineage</div>
+        </div>
+      </div>
+      <div class="dc-rating"><span class="dc-stars">★★★★★</span><span class="dc-rev">&nbsp;4.8 (315 reviews)</span></div>
+      <div class="dc-herbs"><span class="dc-herb">Rejuvenation</span><span class="dc-herb">Immunity</span><span class="dc-herb">Longevity</span></div>
+      <div class="dc-footer">
+        <div class="dc-fee">₹599 <small>/ session</small></div>
+        <button class="dc-btn" onclick="bookDoc(this)">Book Now</button>
+      </div>
+    </div>
+    <div class="doc-card">
+      <div class="dc-top">
+        <div class="dc-av a3">AN</div>
+        <div>
+          <div class="dc-name">Dr. Asha Nair</div>
+          <div class="dc-spec">Streeroga · Women's Health</div>
+          <div class="dc-exp">11 years · Ayurvedic gynaecology</div>
+        </div>
+      </div>
+      <div class="dc-rating"><span class="dc-stars">★★★★★</span><span class="dc-rev">&nbsp;4.9 (572 reviews)</span></div>
+      <div class="dc-herbs"><span class="dc-herb">PCOS</span><span class="dc-herb">Fertility</span><span class="dc-herb">Menopause</span><span class="dc-herb">Hormones</span></div>
+      <div class="dc-footer">
+        <div class="dc-fee">₹449 <small>/ session</small></div>
+        <button class="dc-btn" onclick="bookDoc(this)">Book Now</button>
+      </div>
+    </div>
+    <div class="doc-card">
+      <div class="dc-top">
+        <div class="dc-av a4">PK</div>
+        <div>
+          <div class="dc-name">Dr. Pradeep Kumar</div>
+          <div class="dc-spec">Manasroga · Mental Wellness</div>
+          <div class="dc-exp">14 years · Mind-body healing</div>
+        </div>
+      </div>
+      <div class="dc-rating"><span class="dc-stars">★★★★☆</span><span class="dc-rev">&nbsp;4.7 (248 reviews)</span></div>
+      <div class="dc-herbs"><span class="dc-herb">Anxiety</span><span class="dc-herb">Insomnia</span><span class="dc-herb">Depression</span><span class="dc-herb">Meditation</span></div>
+      <div class="dc-footer">
+        <div class="dc-fee">₹499 <small>/ session</small></div>
+        <button class="dc-btn" onclick="bookDoc(this)">Book Now</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<div class="philosophy" id="philosophy">
+  <div class="philo-text">
+    <div class="s-eyebrow"><div class="s-eline" style="background:var(--gold-lt)"></div><span class="s-etxt" style="color:var(--gold-lt)">Our Philosophy</span></div>
+    <h2 class="s-heading">Treating the <em>root,</em><br>not the symptom</h2>
+    <p class="s-sub" style="color:rgba(255,255,255,0.55)">Ayurveda doesn't suppress illness — it restores balance. Every consultation begins with understanding your unique Prakriti, the innate constitution that shapes everything from your digestion to your dreams.</p>
+    <div class="philo-quote">
+      "Swasthaya swasthya rakshanam, aturasya vikara prashamanam cha."<br>
+      <cite>— Charaka Samhita</cite>
+    </div>
+  </div>
+  <div class="philo-pillars">
+    <div class="pillar">
+      <span class="pillar-num">I</span>
+      <div>
+        <h4>Ahara — Nourishment</h4>
+        <p>Food is your first medicine. Your Vaidya prescribes a diet aligned with your Dosha, season, and agni (digestive fire).</p>
+      </div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">II</span>
+      <div>
+        <h4>Vihara — Lifestyle</h4>
+        <p>Dinacharya (daily routine), yoga, and pranayama tailored to restore your natural rhythms.</p>
+      </div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">III</span>
+      <div>
+        <h4>Aushadhi — Herbs</h4>
+        <p>Classical formulations from Ashtanga Hridayam — Ashwagandha, Triphala, Brahmi, and hundreds more — prescribed precisely.</p>
+      </div>
+    </div>
+    <div class="pillar">
+      <span class="pillar-num">IV</span>
+      <div>
+        <h4>Sadvritta — Conduct</h4>
+        <p>Right conduct, relationships, and mental hygiene. Ayurveda is a complete science of life, not just physical medicine.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="feat-section">
+  <div class="s-eyebrow"><div class="s-eline"></div><span class="s-etxt">Why Vaidya</span></div>
+  <h2 class="s-heading">Everything you need for<br><em>holistic healing</em></h2>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="feat-glyph"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/><circle cx="12" cy="16" r="1.5" fill="var(--saffron)"/></svg></div>
+      <h3>Private & Secure</h3>
+      <p>End-to-end encrypted consultations. Your health history, pulse readings, and prescriptions are stored securely and shared only with your Vaidya.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-glyph"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M9 8h6M9 12h6M9 16h4"/><path d="M16 16l2 2" stroke-width="1.2"/></svg></div>
+      <h3>Authentic Prescriptions</h3>
+      <p>Receive digitally-signed Ayurvedic prescriptions with classical formulation names, dosages in Tola/Masha, and Anupana guidance.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-glyph"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3c0 0-4 4-4 9s4 9 4 9"/><path d="M12 3c0 0 4 4 4 9s-4 9-4 9"/><path d="M3 12h18"/><path d="M4.5 7.5h15M4.5 16.5h15"/></svg></div>
+      <h3>Regional Languages</h3>
+      <p>Consult in Hindi, Malayalam, Kannada, Tamil, Telugu, Marathi, and English. Authentic communication in your mother tongue.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-glyph"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-4"/><path d="M9 3a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1H9V3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>Complete Health Vault</h3>
+      <p>Nadi Pariksha notes, tongue analysis, treatment timelines, and all past prescriptions — in one beautifully organised record.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-glyph"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M9 10h.01M12 10h.01M15 10h.01" stroke-width="2.5"/></svg></div>
+      <h3>Free Follow-ups</h3>
+      <p>Two complimentary follow-up chats within 14 days of every consultation. Your Vaidya monitors your progress and adjusts treatments.</p>
+    </div>
+    <div class="feat-card">
+      <div class="feat-glyph"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 10h14l-1.5 8H6.5L5 10z"/><path d="M3 10h18"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/><path d="M10 14c.5-1 1.5-1.5 2-1s1.5 1.5 2 1" opacity="0.6"/></svg></div>
+      <h3>Herb Delivery</h3>
+      <p>Prescribed herbs sourced from certified farms, processed traditionally, and shipped pan-India within 48 hours of prescription.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="s-eyebrow"><div class="s-eline"></div><span class="s-etxt">Patient Stories</span></div>
+  <h2 class="s-heading"><em>Real transformations,</em><br>real lives</h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-glyph">"</div>
+      <p class="testi-text">After years of medications that only managed my PCOS symptoms, Dr. Nair identified my Pitta-Vata imbalance and prescribed herbs and diet changes. Within three months, my cycles normalised completely.</p>
+      <div class="testi-author">
+        <div class="testi-av" style="background:var(--saffron-pale);color:var(--saffron)">KM</div>
+        <div>
+          <div class="testi-name">Kavya Menon</div>
+          <div class="testi-loc">Bangalore · Streeroga</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-glyph">"</div>
+      <p class="testi-text">I had chronic anxiety and sleep issues for four years. Dr. Kumar's Medhya Rasayana protocol — Brahmi, Shankhapushpi, and specific pranayama — changed my life. I sleep deeply and wake with clarity.</p>
+      <div class="testi-author">
+        <div class="testi-av" style="background:var(--green-pale);color:var(--green)">AT</div>
+        <div>
+          <div class="testi-name">Arjun Thakur</div>
+          <div class="testi-loc">Delhi · Manasroga</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-glyph">"</div>
+      <p class="testi-text">Dr. Sharma's Rasayana protocol reversed what I thought was irreversible ageing fatigue. My energy at 58 is what it was at 35. This is not alternative medicine — this is the original medicine.</p>
+      <div class="testi-author">
+        <div class="testi-av" style="background:var(--gold-pale);color:var(--gold)">SR</div>
+        <div>
+          <div class="testi-name">Suresh Rao</div>
+          <div class="testi-loc">Pune · Rasayana</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Begin your journey<br><em>back to balance</em></h2>
+  <p>Your first Prakriti assessment consultation is free. No commitment required.</p>
+  <a href="#doctors" class="btn-cta-white">Start Your Free Assessment →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="logo">
+      <svg class="logo-leaf" viewBox="0 0 22 22" fill="none">
+        <path d="M11 2C7 2 3 6 3 11C3 11 7 9 11 9C15 9 19 7 19 7C19 7 17 2 11 2Z" fill="#C8621A" opacity="0.8"/>
+        <path d="M11 9C11 9 9 13 9 17C9 19 10 20 11 20C12 20 13 19 13 17C13 13 11 9 11 9Z" fill="rgba(255,255,255,0.7)" opacity="0.7"/>
+      </svg>
+      Vaidya
+    </a>
+    <p>Bringing the timeless wisdom of Ayurveda to every home through certified practitioners and authentic traditions.</p>
+  </div>
+  <div>
+    <h4>Treatments</h4>
+    <ul>
+      <li><a href="#">Panchakarma</a></li>
+      <li><a href="#">Rasayana</a></li>
+      <li><a href="#">Manasroga</a></li>
+      <li><a href="#">Streeroga</a></li>
+      <li><a href="#">Kayachikitsa</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Company</h4>
+    <ul>
+      <li><a href="#">About Vaidya</a></li>
+      <li><a href="#">For Practitioners</a></li>
+      <li><a href="#">Research</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Support</h4>
+    <ul>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 Vaidya Health Technologies Pvt. Ltd. · Consultations are with registered Ayurvedic practitioners.</span>
+  <span>Registered under CCIM · Ministry of AYUSH, Govt. of India</span>
+</div>
+
+<script>
+  function selectDosha(el) {
+    document.querySelectorAll('.dosha-pill').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  document.querySelectorAll('.slot').forEach(s => {
+    s.addEventListener('click', () => {
+      s.closest('.time-slots').querySelectorAll('.slot').forEach(x => x.classList.remove('sel'));
+      s.classList.add('sel');
+    });
+  });
+
+  function bookSlot(btn) {
+    btn.textContent = '✓ Booked!';
+    btn.style.background = 'var(--green)';
+    setTimeout(() => { btn.textContent = 'Book Consultation'; btn.style.background = ''; }, 2800);
+  }
+
+  function bookDoc(btn) {
+    const name = btn.closest('.doc-card').querySelector('.dc-name').textContent;
+    btn.textContent = '✓ Booked';
+    btn.style.background = 'var(--green)';
+    setTimeout(() => { btn.textContent = 'Book Now'; btn.style.background = ''; }, 2500);
+  }
+
+  // Smooth reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.spec-card, .doc-card, .feat-card, .testi-card, .step, .pillar').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    io.observe(el);
+  });
+</script>
+</body>
+</html>

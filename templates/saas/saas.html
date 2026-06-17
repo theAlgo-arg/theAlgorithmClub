@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vektor — Ship work, not overhead</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --base:      #F6F7F9;
+      --white:     #FFFFFF;
+      --ink:       #0E1117;
+      --slate:     #1E293B;
+      --indigo:    #3B5BDB;
+      --indigo-lt: #EEF2FF;
+      --indigo-dk: #2F4AC7;
+      --body:      #64748B;
+      --rule:      #E2E8F0;
+      --rule-dk:   #CBD5E1;
+      --success:   #10B981;
+      --warn:      #F59E0B;
+
+      --font-display: 'Plus Jakarta Sans', sans-serif;
+      --font-body:    'Inter', sans-serif;
+      --font-mono:    'JetBrains Mono', monospace;
+
+      --radius:    8px;
+      --radius-lg: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--base);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── UTILS ─── */
+    .container { max-width: 1180px; margin: 0 auto; padding: 0 48px; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--indigo);
+      background: var(--indigo-lt);
+      border: 1px solid #C7D2FE;
+      border-radius: 100px;
+      padding: 4px 12px;
+      margin-bottom: 20px;
+    }
+    .tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--indigo);
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(246,247,249,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 48px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo-mark {
+      width: 30px;
+      height: 30px;
+      background: var(--indigo);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-logo-mark svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .nav-logo-name {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--body);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: var(--radius);
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--ink); background: var(--rule); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .btn-ghost-nav {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      transition: background 0.15s;
+    }
+    .btn-ghost-nav:hover { background: var(--rule); }
+    .btn-nav {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--indigo);
+      text-decoration: none;
+      padding: 8px 20px;
+      border-radius: var(--radius);
+      transition: background 0.15s;
+    }
+    .btn-nav:hover { background: var(--indigo-dk); }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 148px 0 100px;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--body);
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 100px;
+      padding: 5px 14px 5px 5px;
+      margin-bottom: 28px;
+    }
+    .hero-kicker-badge {
+      background: var(--success);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 100px;
+    }
+    .hero-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5.2vw, 60px);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.032em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .hero-h1 .accent {
+      color: var(--indigo);
+      position: relative;
+      display: inline-block;
+    }
+    .hero-h1 .accent::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; left: 0; right: 0;
+      height: 3px;
+      background: var(--indigo);
+      border-radius: 2px;
+      opacity: 0.25;
+    }
+    .hero-sub {
+      font-size: 16.5px;
+      font-weight: 400;
+      color: var(--body);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 40px;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      background: var(--indigo);
+      text-decoration: none;
+      padding: 13px 26px;
+      border-radius: var(--radius);
+      transition: background 0.15s, box-shadow 0.15s;
+      box-shadow: 0 1px 3px rgba(59,91,219,0.25), 0 4px 12px rgba(59,91,219,0.18);
+    }
+    .btn-primary:hover { background: var(--indigo-dk); box-shadow: 0 2px 6px rgba(59,91,219,0.3), 0 6px 20px rgba(59,91,219,0.2); }
+    .btn-primary svg { width: 16px; height: 16px; stroke: #fff; fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 13px 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--rule-dk);
+      background: var(--white);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .btn-secondary:hover { border-color: #94A3B8; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .btn-secondary svg { width: 15px; height: 15px; stroke: var(--body); fill: none; stroke-width: 2; }
+    .hero-note {
+      margin-top: 20px;
+      font-size: 12.5px;
+      color: #94A3B8;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .hero-note span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .hero-note span::before {
+      content: '✓';
+      color: var(--success);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ─── DASHBOARD MOCKUP ─── */
+    .dashboard {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 20px 60px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.04);
+      overflow: hidden;
+      font-family: var(--font-body);
+    }
+    .dash-titlebar {
+      background: #F8FAFC;
+      border-bottom: 1px solid var(--rule);
+      padding: 11px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .dash-dots { display: flex; gap: 6px; }
+    .dash-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .dash-dot.red   { background: #FF5F57; }
+    .dash-dot.amber { background: #FEBC2E; }
+    .dash-dot.green { background: #28C840; }
+    .dash-url {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: #94A3B8;
+    }
+    .dash-body { display: grid; grid-template-columns: 180px 1fr; }
+    .dash-sidebar {
+      background: #F8FAFC;
+      border-right: 1px solid var(--rule);
+      padding: 16px 0;
+    }
+    .dash-sidebar-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #94A3B8;
+      padding: 0 16px;
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+    .dash-sidebar-label:first-child { margin-top: 0; }
+    .dash-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--body);
+      cursor: default;
+      border-radius: 0;
+      transition: background 0.1s;
+    }
+    .dash-nav-item.active {
+      background: var(--indigo-lt);
+      color: var(--indigo);
+      border-right: 2px solid var(--indigo);
+    }
+    .dash-nav-icon {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      background: currentColor;
+      opacity: 0.2;
+      flex-shrink: 0;
+    }
+    .dash-nav-item.active .dash-nav-icon { opacity: 1; }
+    .dash-main { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+    .dash-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .dash-title { font-size: 14px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
+    .dash-period {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--body);
+      background: var(--base);
+      border: 1px solid var(--rule);
+      border-radius: 5px;
+      padding: 4px 10px;
+    }
+    .dash-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .dash-kpi {
+      background: var(--base);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+    }
+    .dash-kpi-label { font-size: 10px; color: var(--body); margin-bottom: 4px; }
+    .dash-kpi-val {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .dash-kpi-delta {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--success);
+      margin-top: 3px;
+    }
+    .dash-kpi-delta.neg { color: #EF4444; }
+    .dash-chart-wrap {
+      background: var(--base);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+    .dash-chart-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .dash-chart-label { font-size: 11px; font-weight: 600; color: var(--ink); }
+    .dash-chart-legend { display: flex; gap: 12px; }
+    .dash-legend-item { display: flex; align-items: center; gap: 5px; font-size: 9px; color: var(--body); }
+    .dash-legend-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .dash-chart-svg { width: 100%; height: 80px; display: block; }
+    .dash-table {
+      background: var(--base);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .dash-table-head {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #94A3B8;
+    }
+    .dash-table-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--rule);
+      font-size: 11px;
+      align-items: center;
+    }
+    .dash-table-row:last-child { border-bottom: none; }
+    .dash-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 100px;
+    }
+    .dash-status.live { background: #DCFCE7; color: #15803D; }
+    .dash-status.live::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #22C55E; }
+    .dash-status.pause { background: #FEF9C3; color: #A16207; }
+    .dash-status.pause::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #EAB308; }
+    .dash-status.draft { background: var(--rule); color: var(--body); }
+    .dash-status.draft::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: #94A3B8; }
+
+    /* ─── LOGOS ─── */
+    .logos {
+      padding: 52px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      background: var(--white);
+    }
+    .logos-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .logos-label {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      color: #94A3B8;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+    }
+    .logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 52px;
+      flex-wrap: wrap;
+    }
+    .logo-item {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: #CBD5E1;
+      letter-spacing: -0.02em;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .logo-item:hover { color: #94A3B8; }
+
+    /* ─── FEATURES ─── */
+    .features { padding: 110px 0; }
+    .features-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 80px;
+    }
+    .section-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--body);
+      line-height: 1.75;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .feature-card {
+      background: var(--white);
+      padding: 40px 36px;
+      transition: background 0.2s;
+    }
+    .feature-card:hover { background: #FAFBFF; }
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--indigo-lt);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+    .feature-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--indigo);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .feature-body {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.75;
+    }
+
+    /* ─── FEATURE SPOTLIGHT (alternating) ─── */
+    .spotlight { padding: 0 0 110px; }
+    .spot-row {
+      max-width: 1180px;
+      margin: 0 auto 80px;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .spot-row.reverse { direction: rtl; }
+    .spot-row.reverse > * { direction: ltr; }
+    .spot-text {}
+    .spot-h3 {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+    .spot-body {
+      font-size: 15px;
+      color: var(--body);
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    .spot-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .spot-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--body);
+    }
+    .spot-list li::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--indigo-lt);
+      border: 1.5px solid #C7D2FE;
+      flex-shrink: 0;
+      margin-top: 1px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%233B5BDB' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .spot-visual {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 12px 40px rgba(0,0,0,0.06);
+      overflow: hidden;
+    }
+    .spot-visual-inner { padding: 28px; }
+    .mini-pipeline { display: flex; flex-direction: column; gap: 2px; }
+    .pipe-stage-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #94A3B8;
+      padding: 10px 14px 4px;
+    }
+    .pipe-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--base);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+      margin: 0 10px 6px;
+    }
+    .pipe-card-title { font-size: 12px; font-weight: 600; color: var(--ink); }
+    .pipe-card-meta { font-size: 10px; color: var(--body); }
+    .pipe-card-chip {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: var(--indigo-lt);
+      color: var(--indigo);
+    }
+
+    .mini-audit { display: flex; flex-direction: column; gap: 8px; padding: 4px; }
+    .audit-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--base);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius);
+    }
+    .audit-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--indigo);
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .audit-avatar.green { background: #059669; }
+    .audit-avatar.purple { background: #7C3AED; }
+    .audit-avatar.amber { background: #D97706; }
+    .audit-info { flex: 1; }
+    .audit-action { font-size: 12px; font-weight: 500; color: var(--ink); }
+    .audit-time { font-family: var(--font-mono); font-size: 10px; color: var(--body); }
+    .audit-badge {
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+    .audit-badge.view { background: #DBEAFE; color: #1D4ED8; }
+    .audit-badge.edit { background: #FEF3C7; color: #92400E; }
+    .audit-badge.delete { background: #FEE2E2; color: #991B1B; }
+    .audit-badge.create { background: #DCFCE7; color: #166534; }
+
+    /* ─── METRICS BELT ─── */
+    .metrics {
+      background: var(--ink);
+      padding: 80px 0;
+    }
+    .metrics-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .metric-item {
+      background: var(--ink);
+      padding: 48px 40px;
+      position: relative;
+    }
+    .metric-num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .metric-num .metric-unit {
+      font-size: 28px;
+      color: var(--indigo);
+    }
+    .metric-label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      font-weight: 400;
+    }
+    .metric-sub {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--success);
+      margin-top: 6px;
+    }
+
+    /* ─── PRICING ─── */
+    .pricing { padding: 110px 0; background: var(--white); }
+    .pricing-header { text-align: center; margin-bottom: 64px; }
+    .pricing-toggle {
+      display: inline-flex;
+      align-items: center;
+      background: var(--base);
+      border: 1px solid var(--rule);
+      border-radius: 100px;
+      padding: 4px;
+      margin-top: 24px;
+      gap: 2px;
+    }
+    .toggle-opt {
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 20px;
+      border-radius: 100px;
+      cursor: pointer;
+      color: var(--body);
+      border: none;
+      background: transparent;
+      transition: background 0.15s, color 0.15s;
+    }
+    .toggle-opt.active { background: var(--white); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+    .toggle-save {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--success);
+      background: #DCFCE7;
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-left: 4px;
+    }
+    .pricing-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .pricing-card {
+      background: var(--base);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      position: relative;
+      transition: box-shadow 0.2s;
+    }
+    .pricing-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+    .pricing-card.featured {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+    .pricing-featured-badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      color: #fff;
+      background: var(--indigo);
+      padding: 4px 14px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .pricing-tier {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--body);
+      margin-bottom: 8px;
+    }
+    .pricing-card.featured .pricing-tier { color: rgba(255,255,255,0.45); }
+    .pricing-price {
+      font-family: var(--font-display);
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-price sup { font-size: 22px; vertical-align: top; margin-top: 8px; }
+    .pricing-card.featured .pricing-price { color: #fff; }
+    .pricing-per { font-size: 13px; color: var(--body); margin-bottom: 24px; }
+    .pricing-card.featured .pricing-per { color: rgba(255,255,255,0.4); }
+    .pricing-desc { font-size: 14px; color: var(--body); line-height: 1.65; margin-bottom: 28px; }
+    .pricing-card.featured .pricing-desc { color: rgba(255,255,255,0.55); }
+    .pricing-divider {
+      height: 1px;
+      background: var(--rule);
+      margin-bottom: 24px;
+    }
+    .pricing-card.featured .pricing-divider { background: rgba(255,255,255,0.1); }
+    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 11px; margin-bottom: 32px; }
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--body);
+    }
+    .pricing-card.featured .pricing-features li { color: rgba(255,255,255,0.7); }
+    .pricing-features li::before {
+      content: '';
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: var(--indigo-lt);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%233B5BDB' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .pricing-card.featured .pricing-features li::before {
+      background-color: rgba(59,91,219,0.25);
+    }
+    .btn-pricing {
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      transition: all 0.15s;
+    }
+    .btn-pricing.outline {
+      border: 1px solid var(--rule-dk);
+      color: var(--ink);
+      background: var(--white);
+    }
+    .btn-pricing.outline:hover { border-color: #94A3B8; background: var(--base); }
+    .btn-pricing.solid {
+      background: var(--indigo);
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(59,91,219,0.3), 0 4px 12px rgba(59,91,219,0.2);
+    }
+    .btn-pricing.solid:hover { background: var(--indigo-dk); }
+    .pricing-note {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 13px;
+      color: #94A3B8;
+    }
+
+    /* ─── TESTIMONIALS ─── */
+    .testimonials { padding: 110px 0; }
+    .testimonials-header { text-align: center; margin-bottom: 64px; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .testi-card {
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: box-shadow 0.2s;
+    }
+    .testi-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .testi-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 18px;
+    }
+    .testi-star {
+      width: 14px;
+      height: 14px;
+      color: #F59E0B;
+      font-size: 14px;
+    }
+    .testi-quote {
+      font-size: 14.5px;
+      color: var(--body);
+      line-height: 1.75;
+      margin-bottom: 24px;
+      flex: 1;
+    }
+    .testi-author { display: flex; align-items: center; gap: 12px; }
+    .testi-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .testi-name { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+    .testi-role { font-size: 12px; color: var(--body); }
+
+    /* ─── FINAL CTA ─── */
+    .final-cta {
+      background: var(--ink);
+      padding: 100px 0;
+    }
+    .final-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 48px;
+      text-align: center;
+    }
+    .final-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4.5vw, 50px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .final-h2 em { font-style: italic; color: #818CF8; }
+    .final-sub { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 40px; }
+    .final-actions { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
+    .btn-final-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      background: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: var(--radius);
+      transition: opacity 0.15s;
+    }
+    .btn-final-primary:hover { opacity: 0.92; }
+    .btn-final-ghost {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      padding: 14px 24px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .btn-final-ghost:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 70px 0 40px;
+    }
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      margin-bottom: 40px;
+    }
+    .footer-brand-desc {
+      font-size: 13.5px;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.75;
+      margin-top: 14px;
+      max-width: 240px;
+    }
+    .footer-col-title {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-copy { font-size: 12.5px; color: rgba(255,255,255,0.2); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 12.5px; color: rgba(255,255,255,0.2); text-decoration: none; transition: color 0.15s; }
+    .footer-legal a:hover { color: rgba(255,255,255,0.45); }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 52px; }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .spot-row { grid-template-columns: 1fr; gap: 40px; }
+      .spot-row.reverse { direction: ltr; }
+      .metrics-inner { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .testi-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .container, .hero-inner, .nav-inner, .logos-inner, .spot-row, .footer-inner, .metrics-inner { padding-left: 28px; padding-right: 28px; }
+    }
+    @media (max-width: 640px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .metrics-inner { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .logos-row { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">
+        <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <span class="nav-logo-name">Vektor</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#spotlight">How it works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#testimonials">Customers</a></li>
+      <li><a href="#">Docs</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#" class="btn-ghost-nav">Log in</a>
+      <a href="#" class="btn-nav">Start free trial</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      
+      <h1 class="hero-h1">
+        Ship work,<br>not <span class="accent">overhead.</span>
+      </h1>
+      <p class="hero-sub">
+        Vektor gives your team a single place to track projects, measure output, and cut the meetings that could've been a dashboard.
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">
+          <svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg>
+          Start for free
+        </a>
+        <a href="#" class="btn-secondary">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          Watch demo
+        </a>
+      </div>
+      <p class="hero-note">
+        <span>No credit card</span>
+        <span>14-day trial</span>
+        <span>Cancel anytime</span>
+      </p>
+    </div>
+
+    <!-- LIVE DASHBOARD MOCKUP -->
+    <div class="dashboard reveal">
+      <div class="dash-titlebar">
+        <div class="dash-dots">
+          <div class="dash-dot red"></div>
+          <div class="dash-dot amber"></div>
+          <div class="dash-dot green"></div>
+        </div>
+        <div class="dash-url">app.vektor.io / dashboard</div>
+      </div>
+      <div class="dash-body">
+        <div class="dash-sidebar">
+          <div class="dash-sidebar-label">Workspace</div>
+          <div class="dash-nav-item active"><div class="dash-nav-icon"></div> Overview</div>
+          <div class="dash-nav-item"><div class="dash-nav-icon"></div> Projects</div>
+          <div class="dash-nav-item"><div class="dash-nav-icon"></div> Pipeline</div>
+          <div class="dash-sidebar-label">Analytics</div>
+          <div class="dash-nav-item"><div class="dash-nav-icon"></div> Reports</div>
+          <div class="dash-nav-item"><div class="dash-nav-icon"></div> Insights</div>
+          <div class="dash-sidebar-label">Team</div>
+          <div class="dash-nav-item"><div class="dash-nav-icon"></div> Members</div>
+          <div class="dash-nav-item"><div class="dash-nav-icon"></div> Permissions</div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-topbar">
+            <div class="dash-title">Team Overview</div>
+            <div class="dash-period">Jun 1 – Jun 15</div>
+          </div>
+          <div class="dash-kpis">
+            <div class="dash-kpi">
+              <div class="dash-kpi-label">Tasks shipped</div>
+              <div class="dash-kpi-val" id="kpi-tasks">142</div>
+              <div class="dash-kpi-delta">↑ 18% vs last period</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-label">Cycle time</div>
+              <div class="dash-kpi-val" id="kpi-cycle">2.4d</div>
+              <div class="dash-kpi-delta">↓ 0.6d faster</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-label">Velocity score</div>
+              <div class="dash-kpi-val" id="kpi-vel">94</div>
+              <div class="dash-kpi-delta neg">↓ 3 pts</div>
+            </div>
+          </div>
+          <div class="dash-chart-wrap">
+            <div class="dash-chart-head">
+              <div class="dash-chart-label">Output trend</div>
+              <div class="dash-chart-legend">
+                <div class="dash-legend-item"><div class="dash-legend-dot" style="background:#3B5BDB"></div>Shipped</div>
+                <div class="dash-legend-item"><div class="dash-legend-dot" style="background:#E2E8F0"></div>Planned</div>
+              </div>
+            </div>
+            <svg class="dash-chart-svg" viewBox="0 0 400 80" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#3B5BDB" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#3B5BDB" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,60 L40,52 L80,55 L120,38 L160,42 L200,28 L240,32 L280,18 L320,22 L360,12 L400,8" fill="none" stroke="#E2E8F0" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <path d="M0,65 L40,58 L80,60 L120,48 L160,50 L200,36 L240,28 L280,22 L320,18 L360,10 L400,6" fill="none" stroke="#3B5BDB" stroke-width="2"/>
+              <path d="M0,65 L40,58 L80,60 L120,48 L160,50 L200,36 L240,28 L280,22 L320,18 L360,10 L400,6 L400,80 L0,80 Z" fill="url(#chartGrad)"/>
+            </svg>
+          </div>
+          <div class="dash-table">
+            <div class="dash-table-head">
+              <span>Project</span><span>Status</span><span>Tasks</span><span>ETA</span>
+            </div>
+            <div class="dash-table-row">
+              <span style="font-weight:500;font-size:12px;">Auth overhaul</span>
+              <span><span class="dash-status live">Live</span></span>
+              <span style="font-size:11px;color:#64748B;">32 / 32</span>
+              <span style="font-size:11px;color:#64748B;">Done</span>
+            </div>
+            <div class="dash-table-row">
+              <span style="font-weight:500;font-size:12px;">Analytics v2</span>
+              <span><span class="dash-status pause">Paused</span></span>
+              <span style="font-size:11px;color:#64748B;">14 / 28</span>
+              <span style="font-size:11px;color:#64748B;">Jun 28</span>
+            </div>
+            <div class="dash-table-row">
+              <span style="font-weight:500;font-size:12px;">Mobile app</span>
+              <span><span class="dash-status draft">Draft</span></span>
+              <span style="font-size:11px;color:#64748B;">0 / 44</span>
+              <span style="font-size:11px;color:#64748B;">Q3</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── LOGOS ─── -->
+<div class="logos">
+  <div class="logos-inner">
+    <p class="logos-label">Trusted by teams at</p>
+    <div class="logos-row">
+      <span class="logo-item">Meridian</span>
+      <span class="logo-item">Stackform</span>
+      <span class="logo-item">Coldwave</span>
+      <span class="logo-item">Petal</span>
+      <span class="logo-item">Novu Labs</span>
+      <span class="logo-item">Arktype</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FEATURES ─── -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <h2 class="section-h2">Everything your team needs.<br>Nothing they don't.</h2>
+      <p class="section-sub">Built for product, engineering, and ops teams who need clarity without complexity.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3 class="feature-title">Project workspaces</h3>
+        <p class="feature-body">Structured spaces for every initiative. Kanban, list, and timeline views adapt to how your team already works — no migration required.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3 class="feature-title">Real-time analytics</h3>
+        <p class="feature-body">Track velocity, cycle time, and throughput across teams. Updated live, not at the end of the sprint.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="feature-title">AI forecasting</h3>
+        <p class="feature-body">Predict delivery dates based on your team's actual pace. Catch scope creep before it becomes a missed deadline.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="feature-title">Role-based access</h3>
+        <p class="feature-body">Granular permissions for every level. Contributors see their work; leads see everything. Auditable, reversible, and SSO-ready.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3 class="feature-title">Integrations</h3>
+        <p class="feature-body">Two-way sync with GitHub, Jira, Slack, Figma, and 40+ tools. Your workflow, connected — not replaced.</p>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="feature-title">SOC 2 compliant</h3>
+        <p class="feature-body">Type II certified. Data encrypted at rest and in transit. GDPR and CCPA aligned. Enterprise-grade from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SPOTLIGHT ─── -->
+<section class="spotlight" id="spotlight">
+  <div class="spot-row reveal">
+    <div class="spot-text">
+      <h3 class="spot-h3">A pipeline view your team will actually use.</h3>
+      <p class="spot-body">Move work through stages without touching a mouse. Vektor's pipeline is keyboard-navigable, filter-rich, and built for teams managing dozens of concurrent tracks.</p>
+      <ul class="spot-list">
+        <li>Drag-and-drop across unlimited stages</li>
+        <li>Assignee and priority filters in every view</li>
+        <li>One-click status broadcasts to Slack</li>
+        <li>Custom fields per project type</li>
+      </ul>
+    </div>
+    <div class="spot-visual">
+      <div class="spot-visual-inner">
+        <div class="mini-pipeline">
+          <div class="pipe-stage-label">In Progress</div>
+          <div class="pipe-card"><div><div class="pipe-card-title">API rate limiter</div><div class="pipe-card-meta">Assigned to Dev · Due Jun 18</div></div><div class="pipe-card-chip">P1</div></div>
+          <div class="pipe-card"><div><div class="pipe-card-title">Onboarding flow v3</div><div class="pipe-card-meta">Assigned to Design · Due Jun 20</div></div><div class="pipe-card-chip">P2</div></div>
+          <div class="pipe-stage-label">In Review</div>
+          <div class="pipe-card"><div><div class="pipe-card-title">Billing webhook handler</div><div class="pipe-card-meta">Assigned to Backend · Due Jun 17</div></div><div class="pipe-card-chip">P1</div></div>
+          <div class="pipe-stage-label">Done</div>
+          <div class="pipe-card"><div><div class="pipe-card-title">SSO with Okta</div><div class="pipe-card-meta">Completed Jun 12</div></div><div class="pipe-card-chip" style="background:#DCFCE7;color:#166534;">Done</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spot-row reverse reveal">
+    <div class="spot-text">
+      <h3 class="spot-h3">Know exactly who changed what, and when.</h3>
+      <p class="spot-body">Every action in Vektor is timestamped and logged. Export audit trails for compliance reviews or use them to understand how decisions get made across your org.</p>
+      <ul class="spot-list">
+        <li>Immutable, timestamped activity log</li>
+        <li>Exportable for SOC 2 audits</li>
+        <li>Filter by user, action, or date range</li>
+        <li>Webhook delivery for your SIEM</li>
+      </ul>
+    </div>
+    <div class="spot-visual">
+      <div class="spot-visual-inner">
+        <div class="mini-audit">
+          <div class="audit-row">
+            <div class="audit-avatar">S</div>
+            <div class="audit-info">
+              <div class="audit-action">Sarah updated project permissions</div>
+              <div class="audit-time">Today, 11:42 AM</div>
+            </div>
+            <span class="audit-badge edit">Edit</span>
+          </div>
+          <div class="audit-row">
+            <div class="audit-avatar green">M</div>
+            <div class="audit-info">
+              <div class="audit-action">Marcus created API key #4812</div>
+              <div class="audit-time">Today, 9:17 AM</div>
+            </div>
+            <span class="audit-badge create">Create</span>
+          </div>
+          <div class="audit-row">
+            <div class="audit-avatar purple">L</div>
+            <div class="audit-info">
+              <div class="audit-action">Lena viewed billing portal</div>
+              <div class="audit-time">Yesterday, 4:55 PM</div>
+            </div>
+            <span class="audit-badge view">View</span>
+          </div>
+          <div class="audit-row">
+            <div class="audit-avatar amber">R</div>
+            <div class="audit-info">
+              <div class="audit-action">Raj removed team member @cole</div>
+              <div class="audit-time">Yesterday, 2:01 PM</div>
+            </div>
+            <span class="audit-badge delete">Delete</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── METRICS BELT ─── -->
+<div class="metrics">
+  <div class="metrics-inner">
+    <div class="metric-item reveal">
+      <div class="metric-num"><span id="m1">0</span><span class="metric-unit">k</span></div>
+      <div class="metric-label">Teams using Vektor</div>
+      <div class="metric-sub">↑ 2,400 new this quarter</div>
+    </div>
+    <div class="metric-item reveal reveal-delay-1">
+      <div class="metric-num"><span id="m2">0</span><span class="metric-unit">%</span></div>
+      <div class="metric-label">Uptime SLA, all-time</div>
+      <div class="metric-sub">99.99% last 12 months</div>
+    </div>
+    <div class="metric-item reveal reveal-delay-2">
+      <div class="metric-num"><span id="m3">0</span><span class="metric-unit">M</span></div>
+      <div class="metric-label">Tasks tracked to date</div>
+      <div class="metric-sub">↑ 4.2M shipped last month</div>
+    </div>
+    <div class="metric-item reveal reveal-delay-3">
+      <div class="metric-num"><span id="m4">0</span><span class="metric-unit">×</span></div>
+      <div class="metric-label">Average velocity gain</div>
+      <div class="metric-sub">Measured at 90-day mark</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PRICING ─── -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing-header reveal">
+      <h2 class="section-h2">Simple, honest pricing.</h2>
+      <p class="section-sub">No seat minimums. No hidden tiers. Start free, upgrade when you're ready.</p>
+      <div class="pricing-toggle">
+        <button class="toggle-opt active" onclick="setToggle(this)">Monthly</button>
+        <button class="toggle-opt" onclick="setToggle(this)">Annual <span class="toggle-save">Save 20%</span></button>
+      </div>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price"><sup>$</sup>0</div>
+        <div class="pricing-per">Free forever · Up to 5 members</div>
+        <p class="pricing-desc">Everything you need to get a small team moving. No time limit.</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li>Up to 5 projects</li>
+          <li>Kanban & list views</li>
+          <li>Basic analytics (7-day)</li>
+          <li>Slack integration</li>
+          <li>Community support</li>
+        </ul>
+        <a href="#" class="btn-pricing outline">Get started free</a>
+      </div>
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="pricing-featured-badge">Most popular</div>
+        <div class="pricing-tier">Growth</div>
+        <div class="pricing-price"><sup>$</sup>49</div>
+        <div class="pricing-per">per month · Unlimited members</div>
+        <p class="pricing-desc">For teams that move fast and need full visibility across every project.</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li>Unlimited projects</li>
+          <li>All views incl. Timeline</li>
+          <li>90-day analytics + AI forecasting</li>
+          <li>All integrations (40+)</li>
+          <li>Role-based permissions</li>
+          <li>Priority email support</li>
+        </ul>
+        <a href="#" class="btn-pricing solid">Start 14-day trial</a>
+      </div>
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-tier">Enterprise</div>
+        <div class="pricing-price" style="font-size:32px;padding-top:6px;">Custom</div>
+        <div class="pricing-per">Annual contract · Unlimited seats</div>
+        <p class="pricing-desc">For orgs that need SSO, audit logs, dedicated SLAs, and legal agreements.</p>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li>Everything in Growth</li>
+          <li>SAML SSO + SCIM provisioning</li>
+          <li>Full audit log export</li>
+          <li>Dedicated success manager</li>
+          <li>Custom data retention</li>
+          <li>99.99% uptime SLA</li>
+        </ul>
+        <a href="#" class="btn-pricing outline">Talk to sales</a>
+      </div>
+    </div>
+    <p class="pricing-note">All plans include a 14-day trial of Growth. No credit card required.</p>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="testimonials-header reveal">
+      <h2 class="section-h2">What teams say after 90 days.</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"We cut our weekly status meetings from three hours to a 15-minute async standup. Vektor's dashboard answers the questions people used to ask in meetings."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#3B5BDB;">AK</div>
+          <div>
+            <div class="testi-name">Arjun Kapoor</div>
+            <div class="testi-role">Head of Product · Meridian</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"The audit log alone was worth the upgrade. When a compliance review hit, I exported three years of history in under a minute. No scrambling, no spreadsheets."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#059669;">SL</div>
+          <div>
+            <div class="testi-name">Sophie Laurent</div>
+            <div class="testi-role">VP Engineering · Coldwave</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"I've tried Linear, Notion, Jira, Asana. Vektor is the first one where I didn't spend a full sprint configuring it before it was useful."</p>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#7C3AED;">DM</div>
+          <div>
+            <div class="testi-name">Daniel Muñoz</div>
+            <div class="testi-role">CTO · Novu Labs</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ─── -->
+<section class="final-cta">
+  <div class="final-inner reveal">
+    <h2 class="final-h2">Ready to work <em>without</em> the noise?</h2>
+    <p class="final-sub">Join 14,000+ teams who replaced scattered tools and status meetings with one clear workspace.</p>
+    <div class="final-actions">
+      <a href="#" class="btn-final-primary">Start free — no card needed</a>
+      <a href="#" class="btn-final-ghost">Book a 20-min demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <a href="#" class="nav-logo" style="text-decoration:none;">
+          <div class="nav-logo-mark"><svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <span class="nav-logo-name" style="color:#fff;">Vektor</span>
+        </a>
+        <p class="footer-brand-desc">Project intelligence for teams that ship. Built for clarity, designed to get out of your way.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Product</p>
+        <ul class="footer-links">
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Changelog</a></li>
+          <li><a href="#">Roadmap</a></li>
+          <li><a href="#">API Docs</a></li>
+          <li><a href="#">Status</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Company</p>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press kit</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Resources</p>
+        <ul class="footer-links">
+          <li><a href="#">Help centre</a></li>
+          <li><a href="#">Community</a></li>
+          <li><a href="#">Integrations</a></li>
+          <li><a href="#">Templates</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Vektor Inc. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Cookies</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  // ── Pricing toggle (visual)
+  function setToggle(btn) {
+    document.querySelectorAll('.toggle-opt').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ── Animated counters (fire when metrics section visible)
+  const targets = { m1: 14, m2: 99, m3: 38, m4: 2.4 };
+  const formats = { m1: v => Math.round(v), m2: v => Math.round(v), m3: v => Math.round(v), m4: v => v.toFixed(1) };
+  let countersStarted = false;
+
+  function animateCounters() {
+    if (countersStarted) return;
+    countersStarted = true;
+    Object.entries(targets).forEach(([id, target]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      let start = null;
+      const duration = 1800;
+      function step(ts) {
+        if (!start) start = ts;
+        const progress = Math.min((ts - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formats[id](ease * target);
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+
+  const metricsEl = document.querySelector('.metrics');
+  const metricObs = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) { animateCounters(); metricObs.disconnect(); }
+  }, { threshold: 0.3 });
+  if (metricsEl) metricObs.observe(metricsEl);
+
+  // ── KPI live pulse (tiny animation in dashboard)
+  const kpiPulse = [
+    { id: 'kpi-tasks', base: 142, suffix: '' },
+    { id: 'kpi-cycle', base: 2.4, suffix: 'd' },
+    { id: 'kpi-vel', base: 94, suffix: '' },
+  ];
+  setInterval(() => {
+    const item = kpiPulse[Math.floor(Math.random() * kpiPulse.length)];
+    const el = document.getElementById(item.id);
+    if (!el) return;
+    const delta = (Math.random() - 0.5) * 2;
+    const newVal = (parseFloat(item.base) + delta).toFixed(item.suffix === 'd' ? 1 : 0);
+    el.style.transition = 'color 0.3s';
+    el.style.color = '#3B5BDB';
+    el.textContent = newVal + item.suffix;
+    setTimeout(() => { el.style.color = ''; }, 600);
+  }, 2800);
+</script>
+</body>
+</html>

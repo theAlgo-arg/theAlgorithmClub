@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aldermoor University — Where Inquiry Leads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0A1628;
+    --navy2:  #0F2040;
+    --gold:   #C9962B;
+    --gold2:  #E8B84B;
+    --ivory:  #F8F5EF;
+    --mist:   #EEF2F7;
+    --slate:  #4A5568;
+    --light:  #8A96A8;
+    --white:  #FFFFFF;
+    --red:    #8B2635;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--white);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 72px;
+    background: rgba(10,22,40,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,150,43,0.25);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .nav-crest {
+    width: 38px; height: 38px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.5px;
+  }
+  .nav-name {
+    font-family: 'Cinzel', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.3px;
+    line-height: 1.1;
+  }
+  .nav-name small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px; font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 13px; font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    letter-spacing: 0.4px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--navy) !important;
+    padding: 9px 22px;
+    border-radius: 2px;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase;
+  }
+  .nav-cta:hover { background: var(--gold2) !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding-top: 72px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1800&q=80');
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0.28;
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--navy) 30%, transparent 70%),
+                linear-gradient(to right, var(--navy) 0%, transparent 60%);
+  }
+
+  .hero-inner {
+    position: relative; z-index: 2;
+    width: 100%; max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 48px 88px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 80px;
+    align-items: end;
+  }
+
+  .hero-eyebrow {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 28px;
+  }
+  .hero-eyebrow-line {
+    width: 36px; height: 1px; background: var(--gold);
+  }
+  .hero-eyebrow span {
+    font-size: 11px; font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(48px, 6vw, 84px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.06;
+    letter-spacing: -1px;
+    margin-bottom: 28px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 17px; font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 44px;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 15px 32px;
+    border: none; border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--white);
+    padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 500;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-stats {
+    display: flex; flex-direction: column; gap: 32px;
+  }
+  .hero-stat {
+    border-left: 2px solid var(--gold);
+    padding-left: 20px;
+  }
+  .hero-stat-num {
+    font-family: 'Cinzel', serif;
+    font-size: 42px; font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .hero-stat-label {
+    font-size: 12px; font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .hero-scroll {
+    position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    z-index: 2;
+    color: rgba(255,255,255,0.35);
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    animation: bounce 2.5s ease-in-out infinite;
+  }
+  .hero-scroll svg { opacity: 0.4; }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+  /* ── LEGACY STRIP (Signature Element) ── */
+  .legacy-strip {
+    background: var(--navy2);
+    border-top: 1px solid rgba(201,150,43,0.2);
+    border-bottom: 1px solid rgba(201,150,43,0.2);
+    overflow: hidden;
+    position: relative;
+  }
+  .legacy-strip-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 48px;
+    display: flex; align-items: stretch;
+  }
+  .legacy-label {
+    flex-shrink: 0;
+    display: flex; align-items: center;
+    padding: 28px 40px 28px 0;
+    border-right: 1px solid rgba(201,150,43,0.2);
+    gap: 12px;
+  }
+  .legacy-label span {
+    font-size: 10px; font-weight: 500; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--gold);
+    writing-mode: horizontal-tb;
+  }
+  .timeline-track {
+    display: flex; align-items: center;
+    padding: 0 40px;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    flex: 1;
+  }
+  .timeline-track::-webkit-scrollbar { display: none; }
+  .timeline-node {
+    flex-shrink: 0;
+    display: flex; flex-direction: column; align-items: center;
+    position: relative;
+    padding: 24px 40px;
+  }
+  .timeline-node::after {
+    content: '';
+    position: absolute; right: 0; top: 50%;
+    width: 40px; height: 1px;
+    background: rgba(201,150,43,0.3);
+    transform: translateY(-50%);
+  }
+  .timeline-node:last-child::after { display: none; }
+  .timeline-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold); margin-bottom: 10px;
+  }
+  .timeline-year {
+    font-family: 'Cinzel', serif;
+    font-size: 20px; font-weight: 600;
+    color: var(--white); line-height: 1;
+  }
+  .timeline-event {
+    font-size: 11px; font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.3px;
+    text-align: center;
+    margin-top: 4px;
+    max-width: 100px;
+  }
+
+  /* ── ACADEMICS ── */
+  .section { padding: 100px 0; }
+  .section-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
+  .section-tag {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+  }
+  .section-tag span {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .tag-line { width: 28px; height: 1px; background: var(--gold); }
+
+  .section-heading {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+
+  /* Academics grid */
+  .academics { background: var(--ivory); }
+
+  .academics-layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .academics-intro p {
+    font-size: 15px; font-weight: 300;
+    color: var(--slate);
+    line-height: 1.8;
+    margin-top: 24px;
+    margin-bottom: 36px;
+  }
+
+  .academics-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+  }
+  .meta-item strong {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 28px; font-weight: 700;
+    color: var(--navy); line-height: 1;
+  }
+  .meta-item span {
+    font-size: 12px; color: var(--light); letter-spacing: 0.5px;
+    margin-top: 4px; display: block;
+  }
+
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(10,22,40,0.08);
+    border: 1px solid rgba(10,22,40,0.08);
+  }
+
+  .program-card {
+    background: var(--white);
+    padding: 36px 32px;
+    transition: background 0.25s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .program-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+    transform-origin: left;
+  }
+  .program-card:hover { background: var(--navy); }
+  .program-card:hover::before { transform: scaleX(1); }
+  .program-card:hover .prog-name { color: var(--white); }
+  .program-card:hover .prog-desc { color: rgba(255,255,255,0.55); }
+  .program-card:hover .prog-count { color: var(--gold); }
+
+  .prog-icon {
+    width: 42px; height: 42px;
+    background: var(--mist);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+    transition: background 0.25s;
+  }
+  .program-card:hover .prog-icon { background: rgba(255,255,255,0.1); }
+
+  .prog-name {
+    font-family: 'Cinzel', serif;
+    font-size: 17px; font-weight: 600;
+    color: var(--navy); margin-bottom: 10px;
+    transition: color 0.25s;
+  }
+  .prog-desc {
+    font-size: 13px; font-weight: 300;
+    color: var(--slate);
+    line-height: 1.6;
+    transition: color 0.25s;
+  }
+  .prog-count {
+    display: inline-block;
+    margin-top: 18px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--light);
+    transition: color 0.25s;
+  }
+
+  /* ── CAMPUS LIFE ── */
+  .campus { background: var(--white); }
+
+  .campus-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-top: 56px;
+  }
+
+  .campus-visual {
+    position: relative;
+  }
+  .campus-img-main {
+    width: 100%; aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    border-radius: 2px;
+  }
+  .campus-img-inset {
+    position: absolute;
+    bottom: -28px; right: -28px;
+    width: 200px; aspect-ratio: 3/2;
+    object-fit: cover;
+    border: 5px solid var(--white);
+    border-radius: 2px;
+    box-shadow: 0 12px 40px rgba(10,22,40,0.15);
+  }
+  .campus-award {
+    position: absolute;
+    top: 24px; left: -20px;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 12px 18px;
+    border-radius: 2px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px;
+    box-shadow: 0 8px 24px rgba(201,150,43,0.35);
+    max-width: 140px;
+    line-height: 1.3;
+  }
+
+  .campus-content { padding-left: 20px; }
+  .campus-content p {
+    font-size: 15px; font-weight: 300;
+    color: var(--slate); line-height: 1.8;
+    margin-top: 24px; margin-bottom: 40px;
+  }
+
+  .campus-pillars {
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid rgba(10,22,40,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .pillar {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 22px 24px;
+    border-bottom: 1px solid rgba(10,22,40,0.06);
+    transition: background 0.2s;
+  }
+  .pillar:last-child { border-bottom: none; }
+  .pillar:hover { background: var(--ivory); }
+  .pillar-num {
+    font-family: 'Cinzel', serif;
+    font-size: 22px; font-weight: 700; color: var(--gold);
+    flex-shrink: 0; line-height: 1; margin-top: 2px;
+  }
+  .pillar-text strong {
+    display: block;
+    font-size: 14px; font-weight: 600; color: var(--navy);
+    margin-bottom: 3px;
+  }
+  .pillar-text span {
+    font-size: 13px; font-weight: 300; color: var(--slate);
+    line-height: 1.5;
+  }
+
+  /* ── ADMISSIONS BANNER ── */
+  .admissions {
+    background: var(--navy);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .admissions::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 600px; height: 100%;
+    background: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=900&q=70') center/cover;
+    opacity: 0.12;
+  }
+
+  .admissions-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 48px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    position: relative; z-index: 2;
+  }
+
+  .admissions h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700; color: var(--white);
+    line-height: 1.1; letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+  .admissions h2 em { font-style: italic; color: var(--gold); }
+  .admissions p {
+    font-size: 15px; font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.75; margin-bottom: 36px;
+  }
+
+  .admission-steps {
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .step {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 22px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .step:first-child { padding-top: 0; }
+  .step-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: var(--gold);
+    flex-shrink: 0;
+  }
+  .step-info strong {
+    display: block;
+    font-size: 14px; font-weight: 600; color: var(--white);
+    margin-bottom: 4px;
+  }
+  .step-info span {
+    font-size: 13px; font-weight: 300;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.5;
+  }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--mist); padding: 100px 0; }
+
+  .testimonials-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; margin-bottom: 56px;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: var(--white);
+    padding: 40px 36px;
+    border-radius: 2px;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .testimonial-card:hover {
+    border-bottom-color: var(--gold);
+    box-shadow: 0 12px 40px rgba(10,22,40,0.08);
+  }
+
+  .quote-mark {
+    font-family: 'Cinzel', serif;
+    font-size: 72px; line-height: 0.7;
+    color: var(--gold); opacity: 0.35;
+    margin-bottom: 12px; display: block;
+  }
+
+  .testimonial-text {
+    font-family: 'Cinzel', serif;
+    font-size: 16px; font-style: italic;
+    color: var(--navy); line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  .testimonial-person {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .person-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    object-fit: cover;
+    background: var(--mist);
+  }
+  .person-name {
+    font-size: 14px; font-weight: 600; color: var(--navy);
+  }
+  .person-title {
+    font-size: 12px; font-weight: 400; color: var(--light);
+    margin-top: 2px;
+  }
+
+  /* ── NEWS ── */
+  .news { background: var(--white); padding: 100px 0; }
+
+  .news-header {
+    display: flex; justify-content: space-between;
+    align-items: flex-end; margin-bottom: 56px;
+  }
+  .news-link {
+    font-size: 13px; font-weight: 500;
+    color: var(--gold); text-decoration: none;
+    letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .news-link:hover { color: var(--navy); }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1px;
+    background: rgba(10,22,40,0.06);
+    border: 1px solid rgba(10,22,40,0.06);
+  }
+
+  .news-item {
+    background: var(--white);
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .news-item:hover { background: var(--ivory); }
+
+  .news-img {
+    width: 100%; aspect-ratio: 16/9;
+    object-fit: cover; display: block;
+  }
+  .news-featured .news-img { aspect-ratio: 4/3; }
+
+  .news-body { padding: 28px; }
+
+  .news-cat {
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 10px;
+  }
+  .news-title {
+    font-family: 'Cinzel', serif;
+    font-size: 18px; font-weight: 600;
+    color: var(--navy); line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .news-featured .news-title { font-size: 24px; }
+
+  .news-excerpt {
+    font-size: 13px; font-weight: 300;
+    color: var(--slate); line-height: 1.65;
+    margin-bottom: 20px;
+  }
+
+  .news-date {
+    font-size: 11px; color: var(--light);
+    letter-spacing: 0.5px;
+  }
+
+  /* ── CTA FOOTER ── */
+  .cta-section {
+    background: var(--gold);
+    padding: 80px 0;
+  }
+  .cta-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 40px;
+  }
+  .cta-inner h2 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 700; color: var(--navy);
+    line-height: 1.1; letter-spacing: -0.5px;
+    max-width: 560px;
+  }
+  .cta-inner h2 em { font-style: italic; }
+
+  .cta-actions { display: flex; gap: 14px; flex-shrink: 0; }
+  .btn-dark {
+    background: var(--navy);
+    color: var(--white);
+    padding: 15px 32px;
+    border: none; border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-dark:hover { background: var(--navy2); }
+  .btn-outline-dark {
+    background: transparent;
+    color: var(--navy);
+    padding: 14px 32px;
+    border: 2px solid var(--navy);
+    border-radius: 2px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    text-decoration: none; cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-outline-dark:hover { background: var(--navy); color: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy2);
+    padding: 64px 0 32px;
+    border-top: 1px solid rgba(201,150,43,0.15);
+  }
+  .footer-inner {
+    max-width: 1280px; margin: 0 auto; padding: 0 48px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 240px 1fr 1fr 1fr;
+    gap: 60px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-brand {}
+  .footer-crest {
+    width: 52px; height: 52px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 20px; font-weight: 700; color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .footer-brand-name {
+    font-family: 'Cinzel', serif;
+    font-size: 17px; font-weight: 600; color: var(--white);
+    line-height: 1.3; margin-bottom: 16px;
+  }
+  .footer-brand-desc {
+    font-size: 13px; font-weight: 300;
+    color: rgba(255,255,255,0.4); line-height: 1.7;
+  }
+
+  .footer-col h4 {
+    font-size: 10px; font-weight: 600; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col a {
+    font-size: 13px; font-weight: 300;
+    color: rgba(255,255,255,0.5); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--white); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 28px;
+  }
+  .footer-copy {
+    font-size: 12px; color: rgba(255,255,255,0.25);
+    letter-spacing: 0.3px;
+  }
+  .footer-socials { display: flex; gap: 16px; }
+  .social-btn {
+    width: 32px; height: 32px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none; font-size: 13px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ── SCROLL ANIMATION ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { opacity: 1; transform: none; transition: none; }
+    .hero-scroll { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-crest">AU</div>
+    <div class="nav-name">
+      Aldermoor University
+      <small>Est. 1887</small>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Academics</a></li>
+    <li><a href="#">Research</a></li>
+    <li><a href="#">Campus Life</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#" class="nav-cta">Apply Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-line"></div>
+        <span>QS World Ranked · Top 40</span>
+      </div>
+      <h1>
+        Shaped by<br /><em>curiosity.</em><br />Driven by purpose.
+      </h1>
+      <p class="hero-sub">
+        Aldermoor University has educated independent thinkers since 1887. Across 14 faculties, one question guides everything: what does the world genuinely need next?
+      </p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">Explore Programmes</a>
+        <a href="#" class="btn-ghost">Book an Open Day</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">38,000</div>
+        <div class="hero-stat-label">Students from 120 nations</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">94%</div>
+        <div class="hero-stat-label">Graduate employment within 6 months</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">£2.4B</div>
+        <div class="hero-stat-label">Active research portfolio</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <svg width="16" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 16 20"><rect x="1" y="1" width="14" height="18" rx="7"/><line x1="8" y1="5" x2="8" y2="9"/></svg>
+    Scroll
+  </div>
+</section>
+
+<!-- LEGACY STRIP (Signature Element) -->
+<div class="legacy-strip">
+  <div class="legacy-strip-inner">
+    <div class="legacy-label">
+      <span>Our History</span>
+    </div>
+    <div class="timeline-track">
+      <div class="timeline-node">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1887</div>
+        <div class="timeline-event">Founded by Royal Charter</div>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1923</div>
+        <div class="timeline-event">First women admitted</div>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1954</div>
+        <div class="timeline-event">Nobel Prize in Chemistry</div>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1971</div>
+        <div class="timeline-event">Medical School opens</div>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1998</div>
+        <div class="timeline-event">Global campus network</div>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2014</div>
+        <div class="timeline-event">Top 40 QS World Rank</div>
+      </div>
+      <div class="timeline-node">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">Today</div>
+        <div class="timeline-event">38,000 students worldwide</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACADEMICS -->
+<section class="section academics">
+  <div class="section-inner">
+    <div class="academics-layout">
+      <div class="academics-intro fade-up">
+        <div class="section-tag">
+          <div class="tag-line"></div>
+          <span>Academic Programmes</span>
+        </div>
+        <h2 class="section-heading">14 faculties.<br />One community.</h2>
+        <p>We offer undergraduate, postgraduate, and doctoral programmes built around discipline-crossing research. Aldermoor graduates enter their fields with both deep expertise and the breadth to lead.</p>
+        <div class="academics-meta">
+          <div class="meta-item">
+            <strong>420+</strong>
+            <span>Degree pathways</span>
+          </div>
+          <div class="meta-item">
+            <strong>52</strong>
+            <span>Research centres</span>
+          </div>
+          <div class="meta-item">
+            <strong>Top 5</strong>
+            <span>Law, Medicine, Engineering</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="programs-grid fade-up">
+        <div class="program-card">
+          <div class="prog-icon">⚕️</div>
+          <div class="prog-name">Medicine & Health Sciences</div>
+          <div class="prog-desc">Clinical training embedded in one of Europe's largest teaching hospital networks.</div>
+          <div class="prog-count">28 Programmes →</div>
+        </div>
+        <div class="program-card">
+          <div class="prog-icon">⚖️</div>
+          <div class="prog-name">Law</div>
+          <div class="prog-desc">Consistently ranked among the top five law schools in the UK, with strong Bar and solicitor outcomes.</div>
+          <div class="prog-count">12 Programmes →</div>
+        </div>
+        <div class="program-card">
+          <div class="prog-icon">🔬</div>
+          <div class="prog-name">Sciences & Engineering</div>
+          <div class="prog-desc">Fully integrated laboratory and industry placement structure across all years.</div>
+          <div class="prog-count">64 Programmes →</div>
+        </div>
+        <div class="program-card">
+          <div class="prog-icon">💼</div>
+          <div class="prog-name">Business & Economics</div>
+          <div class="prog-desc">Triple-accredited business school with campuses in London, Singapore, and Toronto.</div>
+          <div class="prog-count">34 Programmes →</div>
+        </div>
+        <div class="program-card">
+          <div class="prog-icon">🎨</div>
+          <div class="prog-name">Arts & Humanities</div>
+          <div class="prog-desc">From classical literature to contemporary digital practice — all within a research-intensive culture.</div>
+          <div class="prog-count">52 Programmes →</div>
+        </div>
+        <div class="program-card">
+          <div class="prog-icon">🌍</div>
+          <div class="prog-name">Social Sciences</div>
+          <div class="prog-desc">Policy, sociology, international relations, and education — with real placement opportunities in government and NGOs.</div>
+          <div class="prog-count">41 Programmes →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAMPUS LIFE -->
+<section class="section campus">
+  <div class="section-inner">
+    <div class="section-tag fade-up">
+      <div class="tag-line"></div>
+      <span>Life at Aldermoor</span>
+    </div>
+    <h2 class="section-heading fade-up">A campus that works<br />as hard as you do.</h2>
+
+    <div class="campus-grid">
+      <div class="campus-visual fade-up">
+        <img class="campus-img-main" src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=900&q=75" alt="Aldermoor campus main building" />
+        <img class="campus-img-inset" src="https://images.unsplash.com/photo-1529070538774-1843cb3265df?w=400&q=70" alt="Students collaborating" />
+        <div class="campus-award">🏆 Times Higher Education University of the Year 2024</div>
+      </div>
+
+      <div class="campus-content fade-up">
+        <p>Life here runs well beyond the lecture hall. Aldermoor's 87-acre main campus sits 12 minutes from the city centre, with dedicated residential colleges, an Olympic-standard sports complex, and over 200 student societies.</p>
+        <div class="campus-pillars">
+          <div class="pillar">
+            <div class="pillar-num">01</div>
+            <div class="pillar-text">
+              <strong>Guaranteed first-year accommodation</strong>
+              <span>All undergraduate offer holders receive a guaranteed room in a residential college within 10 minutes walk of their faculty.</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">02</div>
+            <div class="pillar-text">
+              <strong>Wellbeing embedded, not bolted on</strong>
+              <span>Every student has a named personal tutor and access to counselling with no waiting list for first appointments.</span>
+            </div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-num">03</div>
+            <div class="pillar-text">
+              <strong>Careers from year one</strong>
+              <span>Aldermoor's careers service is ranked first in the country for graduate employer connections and internship placement rates.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADMISSIONS -->
+<section class="admissions">
+  <div class="admissions-inner">
+    <div class="fade-up">
+      <div class="section-tag">
+        <div class="tag-line" style="background:var(--gold)"></div>
+        <span style="color:var(--gold)">Admissions 2025 / 26</span>
+      </div>
+      <h2>Your application.<br /><em>No mystery to it.</em></h2>
+      <p>We want to admit the right people, not the most coached applicants. Our process rewards genuine ability and potential, and we're transparent about every stage.</p>
+      <a href="#" class="btn-primary">Start Your Application</a>
+    </div>
+
+    <div class="admission-steps fade-up">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-info">
+          <strong>Choose your programme</strong>
+          <span>Use our programme finder to filter by subject, study mode, and intake year.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-info">
+          <strong>Submit your application</strong>
+          <span>Undergraduate via UCAS. Postgraduate directly through our applicant portal — no fee.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-info">
+          <strong>Interview or portfolio review</strong>
+          <span>Select programmes require an interview or portfolio. We offer remote and in-person slots from October.</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-info">
+          <strong>Receive your offer</strong>
+          <span>Decisions are sent within 21 working days. You'll have a named admissions contact for any questions.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="testimonials-header">
+      <div>
+        <div class="section-tag fade-up">
+          <div class="tag-line"></div>
+          <span>Student Voices</span>
+        </div>
+        <h2 class="section-heading fade-up">What our students<br />actually say.</h2>
+      </div>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card fade-up">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">I came from a state school in rural Wales with no family history of university. The support here didn't feel charitable — it felt like they genuinely expected me to succeed, and then made sure I did.</p>
+        <div class="testimonial-person">
+          <div class="person-avatar" style="background:linear-gradient(135deg,#4A5568,#2D3748);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:14px;">RJ</div>
+          <div>
+            <div class="person-name">Rhiannon Jones</div>
+            <div class="person-title">BSc Computer Science, 2023</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-up" style="transition-delay:0.1s">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">My supervisor pushed me to publish in my second year. That paper led directly to the fellowship I'm on now. At other institutions I'd probably still be waiting for permission to matter.</p>
+        <div class="testimonial-person">
+          <div class="person-avatar" style="background:linear-gradient(135deg,#C9962B,#8B6914);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:14px;">MP</div>
+          <div>
+            <div class="person-name">Marcos Pereira</div>
+            <div class="person-title">PhD Biochemistry, current</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card fade-up" style="transition-delay:0.2s">
+        <span class="quote-mark">"</span>
+        <p class="testimonial-text">The careers team placed me in an internship at a firm I'd never have had the nerve to apply to alone. I got a graduate offer from them six months before I'd even finished my degree.</p>
+        <div class="testimonial-person">
+          <div class="person-avatar" style="background:linear-gradient(135deg,#0A1628,#1A3A5C);display:flex;align-items:center;justify-content:center;color:white;font-weight:600;font-size:14px;">NN</div>
+          <div>
+            <div class="person-name">Nadia Nakamura</div>
+            <div class="person-title">LLB Law, 2024</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="news">
+  <div class="section-inner">
+    <div class="news-header">
+      <div>
+        <div class="section-tag fade-up">
+          <div class="tag-line"></div>
+          <span>From the University</span>
+        </div>
+        <h2 class="section-heading fade-up">Research. Appointments.<br />What's happening now.</h2>
+      </div>
+      <a href="#" class="news-link fade-up">All news &amp; events →</a>
+    </div>
+
+    <div class="news-grid fade-up">
+      <div class="news-item news-featured">
+        <img class="news-img" src="https://images.pexels.com/photos/8532851/pexels-photo-8532851.jpeg" alt="Research lab" />
+        <div class="news-body">
+          <div class="news-cat">Research</div>
+          <div class="news-title">Aldermoor team publishes breakthrough on antibiotic resistance — implications for NHS treatment protocols within 18 months</div>
+          <div class="news-excerpt">A four-year study led by Prof. Sarah Chen has identified a class of compounds that disrupt bacterial biofilm formation without accelerating resistance pathways.</div>
+          <div class="news-date">12 June 2025</div>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <img class="news-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=70" alt="Lecture hall" />
+        <div class="news-body">
+          <div class="news-cat">Appointments</div>
+          <div class="news-title">Former UN Special Envoy joins faculty as Distinguished Professor of Global Affairs</div>
+          <div class="news-excerpt">Professor Amara Diallo will lead a new postgraduate policy clinic launching in January 2026.</div>
+          <div class="news-date">8 June 2025</div>
+        </div>
+      </div>
+
+      <div class="news-item">
+        <img class="news-img" src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=500&q=70" alt="Students on campus" />
+        <div class="news-body">
+          <div class="news-cat">Open Days</div>
+          <div class="news-title">Undergraduate Open Day — 14 September 2025. Bookings now live.</div>
+          <div class="news-excerpt">Tour every faculty, meet current students, and attend a sample lecture in your subject. Places are limited to 3,000 visitors.</div>
+          <div class="news-date">1 June 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2>Ready to find out if<br /><em>Aldermoor is for you?</em></h2>
+    <div class="cta-actions">
+      <a href="#" class="btn-dark">Apply for 2025 Entry</a>
+      <a href="#" class="btn-outline-dark">Request a Prospectus</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-crest">AU</div>
+        <div class="footer-brand-name">Aldermoor<br />University</div>
+        <div class="footer-brand-desc">Shaping independent thinkers since 1887. Aldermoor is a public research university accredited by the UK Quality Assurance Agency.</div>
+      </div>
+      <div class="footer-col">
+        <h4>Study</h4>
+        <ul>
+          <li><a href="#">Undergraduate</a></li>
+          <li><a href="#">Postgraduate Taught</a></li>
+          <li><a href="#">Doctoral Research</a></li>
+          <li><a href="#">Online & Flexible</a></li>
+          <li><a href="#">Executive Education</a></li>
+          <li><a href="#">Summer Schools</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>University</h4>
+        <ul>
+          <li><a href="#">About Aldermoor</a></li>
+          <li><a href="#">Faculties & Schools</a></li>
+          <li><a href="#">Research Centres</a></li>
+          <li><a href="#">Library & Collections</a></li>
+          <li><a href="#">News & Events</a></li>
+          <li><a href="#">Annual Reports</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Student Services</a></li>
+          <li><a href="#">Disability Support</a></li>
+          <li><a href="#">International Students</a></li>
+          <li><a href="#">Fees & Funding</a></li>
+          <li><a href="#">Contact Admissions</a></li>
+          <li><a href="#">Alumni Network</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 Aldermoor University. Registered charity no. 1102987. All rights reserved.</div>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" aria-label="Twitter">𝕏</a>
+        <a href="#" class="social-btn" aria-label="LinkedIn">in</a>
+        <a href="#" class="social-btn" aria-label="Instagram">ig</a>
+        <a href="#" class="social-btn" aria-label="YouTube">▶</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Intersection Observer for fade-up animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Sticky nav background intensity
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 60
+      ? 'rgba(10,22,40,0.98)'
+      : 'rgba(10,22,40,0.96)';
+  });
+</script>
+</body>
+</html>
