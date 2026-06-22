@@ -9,7 +9,19 @@
 body{background:#f5f7fb;padding:60px;}
 .container{max-width:1200px;margin:auto;}
 h1{font-size:42px;margin-bottom:40px;}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:30px;}
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:30px;
+}
+
+@media(max-width:768px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
+}
 .card{background:white;border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.08);}
 .card img{width:100%;height:260px;object-fit:cover;}
 .content{padding:25px;}
