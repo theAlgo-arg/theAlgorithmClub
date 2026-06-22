@@ -30,8 +30,16 @@ margin-bottom:40px;
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+grid-template-columns:repeat(2,1fr);
 gap:30px;
+}
+
+@media(max-width:768px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
 }
 
 .card{
