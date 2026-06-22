@@ -31,8 +31,16 @@ margin-bottom:40px;
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(380px,1fr));
+grid-template-columns:repeat(2,1fr);
 gap:30px;
+}
+
+@media(max-width:768px){
+
+.grid{
+grid-template-columns:1fr;
+}
+
 }
 
 .card{
@@ -86,23 +94,23 @@ border-radius:8px;
 
 <div class="grid">
 
-<div class="card">
+    <div class="card">
 
-<img src="../../assets/restaurant.png">
+        <img src="../../assets/restaurant.png">
 
-<div class="content">
+        <div class="content">
 
-<h2>Maison Restaurant</h2>
+            <h2>Maison Restaurant</h2>
 
-<p>Premium Fine Dining Website Template</p>
+            <p>Premium Fine Dining Website Template</p>
 
-<a href="maison.html" class="btn">
-Preview Template
-</a>
+            <a href="maison.html" class="btn">
+                Preview Template
+            </a>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </div>
 
